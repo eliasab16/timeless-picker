@@ -15,8 +15,10 @@ export class PickerComponent implements OnInit {
   // A threshold that divides the movement measurement to control actual picker movement.
   distThreshold = 550;
   // how many digits are displayed on the wheel. Should be one of (3, 5, 7).
-  numberDigitsShow = 7;
-  middleIndex = (this.numberDigitsShow - 1) / 2;
+  numberDigitsShown = 7;
+  middleIndex = (this.numberDigitsShown - 1) / 2;
+  range: number[] = [];
+  components: {[key: number]: number} = {};
 
   constructor() {
     this.moveWheelUp = this.moveWheelUp.bind(this);
@@ -24,6 +26,12 @@ export class PickerComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.range = Array.from({ length: this.numberDigitsShown }, (_, i) => i);
+    this.range.map(num => {
+      console.log(num);
+      this.components[num] = num;
+    });
+
     const element = document.getElementById('picker');
     if (!element) return;
 
@@ -41,42 +49,6 @@ export class PickerComponent implements OnInit {
     });
   }
 
-  opacityMap: { [key: number]: number } = {
-    0: 0.2,
-    6: 0.2,
-    1: 0.35,
-    5: 0.35,
-    2: 0.5,
-    4: 0.5,
-  }
-
-  components = [
-    { order: 1 },
-    { order: 2 },
-    { order: 3 },
-    { order: 4 },
-    { order: 5 },
-    { order: 6 },
-    { order: 7 },
-    { order: 8 },
-    { order: 9 },
-    { order: 10 },
-    { order: 11 },
-    { order: 12 },
-    { order: 13 },
-    { order: 14 },
-    { order: 15 },
-    { order: 16 },
-    { order: 17 },
-    { order: 18 },
-    { order: 19 },
-    { order: 20 },
-    { order: 21 },
-    { order: 22 },
-    { order: 23 },
-    { order: 24 }
-  ];
-
   //  direction: 0 -> up, 1 -> down
   // todo: sensitivity parameters interface for user to tune
   transition(direction: number, event: any) {
@@ -92,7 +64,6 @@ export class PickerComponent implements OnInit {
       }
     }
   }
-
   callFor(fn: any, times: number, timeout?: number) {
     for (let i = 0; i < times; i++) {
       setTimeout(() => {
@@ -101,21 +72,21 @@ export class PickerComponent implements OnInit {
     }
   }
 
-
   moveWheelUp() {
-    this.components.forEach((c) => {
-      c.order = (c.order % 24) + 1;
-    })
+    for (let i = 0; i < 7; i++) {
+      this.components[i] = (this.components[i] + 1) % 24;
+    }
   }
 
+
   moveWheelDown() {
-    this.components.forEach((c) => {
-      c.order = ((c.order -2 + 24) % 24 + 1);
-    })
+    for (let i = 0; i < 7; i++) {
+      this.components[i] = ((this.components[i] - 1 + 24) % 24);
+    }
   }
 
   numberClicked(index: number) {
-    if (index < this.numberDigitsShow) {
+    if (index < this.numberDigitsShown) {
       if (index < this.middleIndex) {
         this.callFor(this.moveWheelDown, this.middleIndex - index, 90);
       } else if (index > this.middleIndex) {
@@ -131,6 +102,15 @@ export class PickerComponent implements OnInit {
     // const factor = 8 / (1 + Math.exp(6 - Math.abs(velocity)));
     const factor = Math.exp(Math.abs(velocity)-1);
     return Math.min(Math.max(factor, 0.25), 8);
+  }
+
+  opacityMap: { [key: number]: number } = {
+    0: 0.15,
+    6: 0.15,
+    1: 0.35,
+    5: 0.35,
+    2: 0.5,
+    4: 0.5,
   }
 
   private debounce = (fn: any) => {
