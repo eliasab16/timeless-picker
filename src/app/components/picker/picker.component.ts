@@ -14,10 +14,13 @@ export class PickerComponent implements OnInit {
   movementMeasure: number = 0;
   // A threshold that divides the movement measurement to control actual picker movement.
   distThreshold = 550;
+  // how many digits are displayed on the wheel. Should be one of (3, 5, 7).
+  numberDigitsShow = 7;
+  middleIndex = (this.numberDigitsShow - 1) / 2;
 
   constructor() {
-    this.onPanUp = this.onPanUp.bind(this);
-    this.onPanDown = this.onPanDown.bind(this);
+    this.moveWheelUp = this.moveWheelUp.bind(this);
+    this.moveWheelDown = this.moveWheelDown.bind(this);
   }
 
   ngOnInit() {
@@ -36,6 +39,15 @@ export class PickerComponent implements OnInit {
     mc.on('pandown', (event: any) => {
       this.transition(1, event);
     });
+  }
+
+  opacityMap: { [key: number]: number } = {
+    0: 0.2,
+    6: 0.2,
+    1: 0.35,
+    5: 0.35,
+    2: 0.5,
+    4: 0.5,
   }
 
   components = [
@@ -66,7 +78,7 @@ export class PickerComponent implements OnInit {
   ];
 
   //  direction: 0 -> up, 1 -> down
-  // todo: sensitivity parameters for user to tune
+  // todo: sensitivity parameters interface for user to tune
   transition(direction: number, event: any) {
     const factor = this.speedFactor(event.velocityY);
     this.movementMeasure += event.distance * factor;
@@ -74,29 +86,42 @@ export class PickerComponent implements OnInit {
       const times = Math.round(this.movementMeasure / this.distThreshold);
       this.movementMeasure = 0;
       if (direction === 0) {
-        this.callFor(this.onPanUp, times);
+        this.callFor(this.moveWheelUp, times);
       } else {
-        this.callFor(this.onPanDown, times);
+        this.callFor(this.moveWheelDown, times);
       }
     }
   }
 
-  callFor(fn: any, times: number) {
+  callFor(fn: any, times: number, timeout?: number) {
     for (let i = 0; i < times; i++) {
-      fn();
+      setTimeout(() => {
+        fn();
+      }, timeout ? timeout * i : 0);
     }
   }
 
-  onPanUp() {
+
+  moveWheelUp() {
     this.components.forEach((c) => {
       c.order = (c.order % 24) + 1;
     })
   }
 
-  onPanDown() {
+  moveWheelDown() {
     this.components.forEach((c) => {
       c.order = ((c.order -2 + 24) % 24 + 1);
     })
+  }
+
+  numberClicked(index: number) {
+    if (index < this.numberDigitsShow) {
+      if (index < this.middleIndex) {
+        this.callFor(this.moveWheelDown, this.middleIndex - index, 90);
+      } else if (index > this.middleIndex) {
+        this.callFor(this.moveWheelUp, index - this.middleIndex, 90);
+      }
+    }
   }
 
   private speedFactor(velocity: number) {
@@ -104,7 +129,7 @@ export class PickerComponent implements OnInit {
     // speeds with < 1 values. Used to factor the movement distance calculation. The idea is to
     // improve user experience with variable scrolling speeds.
     // const factor = 8 / (1 + Math.exp(6 - Math.abs(velocity)));
-    const factor = Math.exp(Math.abs(velocity)-2);
+    const factor = Math.exp(Math.abs(velocity)-1);
     return Math.min(Math.max(factor, 0.25), 8);
   }
 
