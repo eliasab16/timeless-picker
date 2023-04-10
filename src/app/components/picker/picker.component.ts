@@ -8,7 +8,11 @@ import * as Hammer from 'hammerjs';
 })
 export class PickerComponent implements OnInit {
   cumulativeVelocity: number = 0;
-  totalDistance: number = 0;
+  // A normalized, cumulative measurement of user swipe distance to compare against the
+  // distThreshold to determine actual movement of the picker. The speed of user swiping is
+  // factored in. After an actual movement is triggered, the value is reset to zero.
+  movementMeasure: number = 0;
+  // A threshold that divides the movement measurement to control actual picker movement.
   distThreshold = 550;
 
   constructor() {
@@ -62,17 +66,13 @@ export class PickerComponent implements OnInit {
   ];
 
   //  direction: 0 -> up, 1 -> down
+  // todo: sensitivity parameters for user to tune
   transition(direction: number, event: any) {
     const factor = this.speedFactor(event.velocityY);
-    console.log(`factor`, factor);
-    this.totalDistance += event.distance * factor;
-    if (this.totalDistance > this.distThreshold) {
-      const times = Math.round(this.totalDistance / this.distThreshold);
-      // const factoredTimes = Math.round(times * this.speedFactor(event.velocityY));
-      if (times > 1) {
-        console.log(`factored times:`, times);
-      }
-      this.totalDistance = 0;
+    this.movementMeasure += event.distance * factor;
+    if (this.movementMeasure > this.distThreshold) {
+      const times = Math.round(this.movementMeasure / this.distThreshold);
+      this.movementMeasure = 0;
       if (direction === 0) {
         this.callFor(this.onPanUp, times);
       } else {
@@ -87,6 +87,18 @@ export class PickerComponent implements OnInit {
     }
   }
 
+  onPanUp() {
+    this.components.forEach((c) => {
+      c.order = (c.order % 24) + 1;
+    })
+  }
+
+  onPanDown() {
+    this.components.forEach((c) => {
+      c.order = ((c.order -2 + 24) % 24 + 1);
+    })
+  }
+
   private speedFactor(velocity: number) {
     // this bounded function rewards high scroll speeds by returning > 1 factors and penalizes slow
     // speeds with < 1 values. Used to factor the movement distance calculation. The idea is to
@@ -94,18 +106,6 @@ export class PickerComponent implements OnInit {
     // const factor = 8 / (1 + Math.exp(6 - Math.abs(velocity)));
     const factor = Math.exp(Math.abs(velocity)-2);
     return Math.min(Math.max(factor, 0.25), 8);
-  }
-
-  onPanUp() {
-    this.components.forEach((c) => {
-      c.order = (c.order % 12) + 1;
-    })
-  }
-
-  onPanDown() {
-    this.components.forEach((c) => {
-      c.order = ((c.order -2 + 12) % 12) + 1;
-    })
   }
 
   private debounce = (fn: any) => {
