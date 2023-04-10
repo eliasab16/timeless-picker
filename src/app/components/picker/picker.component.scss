@@ -1,0 +1,15 @@
+div#picker {
+  max-height: 210px;
+  max-width: 30px;
+  overflow: hidden;
+  overflow-y: hidden;
+}
+
+.hour-digit {
+  font-family: 'Roboto Condensed', sans-serif;
+  color: black;
+  font-size: 25px;
+  text-align: center;
+  height: 30px;
+  width: 30px;
+}
