@@ -1,16 +1,19 @@
 import { NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
+import {BrowserModule, HammerModule} from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { PickerComponent } from './components/picker/picker.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    PickerComponent
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    HammerModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
