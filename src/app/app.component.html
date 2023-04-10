@@ -1,4 +1,12 @@
 <script src="https://hammerjs.github.io/dist/hammer.js"></script>
 
-
-<app-picker></app-picker>
+<div style="display: flex;">
+  <app-picker [displayData]="hours"
+              [visibleItemsNum]="7"
+              [selectedItemIndex]="15"
+              [id]="'hours'"></app-picker>
+  <app-picker [displayData]="minutes"
+              [visibleItemsNum]="7"
+              [selectedItemIndex]="24"
+              [id]="'mins'"></app-picker>
+</div>

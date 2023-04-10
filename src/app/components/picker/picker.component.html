@@ -1,9 +1,8 @@
-<h3>picked number {{ components[middleIndex] }}</h3>
-<div id="picker" class="wheel">
+<div #wheel class="wheel" (wheel)="onMouseWheel($event)">
   <ng-container *ngFor="let i of range" >
     <div [style.opacity]="opacityMap[i]"
          (click)="numberClicked(i)"
          class="hour-digit">
-      {{ components[i] }}</div>
+      {{ displayData[orderMapping[i]] }}</div>
   </ng-container>
 </div>
