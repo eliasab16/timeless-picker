@@ -23,6 +23,7 @@ export class PickerComponent implements OnInit {
   // The index of the item the user wishes to display in the middle on initialization. The index
   // of the item within the displayData list
   @Input() selectedItemIndex: number = 0;
+  @Input() wheelStyle: boolean = true;
   itemsCount: number = 0;
   cumulativeVelocity: number = 0;
   // A normalized, cumulative measurement of user swipe distance to compare against the
@@ -31,7 +32,7 @@ export class PickerComponent implements OnInit {
   movementMeasure: number = 0;
   // A threshold that divides the movement measurement to control actual picker movement.
   distThreshold = 550;
-  wheelMiddleIndex = (this.visibleItemsNum - 1) / 2;
+  wheelMiddleIndex = 0;
   // The number of items/numbers to be available for selection
   range: number[] = [];
   // Maps order (as displayed in the html) to the item-id (which in turn is mapped to displayed
@@ -45,6 +46,7 @@ export class PickerComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.wheelMiddleIndex = (this.visibleItemsNum - 1) / 2;
     this.itemsCount = this.displayData.length;
     this.range = Array.from({ length: this.visibleItemsNum }, (_, i) => i);
     this.range.map(num => {
@@ -93,6 +95,9 @@ export class PickerComponent implements OnInit {
   }
 
   moveWheelUp() {
+    if (!this.wheelStyle && this.orderMapping[this.wheelMiddleIndex] === (this.displayData.length-this.wheelMiddleIndex-1)) {
+      return;
+    }
     for (let i = 0; i < this.visibleItemsNum; i++) {
       this.orderMapping[i] = (this.orderMapping[i] + 1) % this.itemsCount;
     }
@@ -100,11 +105,15 @@ export class PickerComponent implements OnInit {
 
 
   moveWheelDown() {
+    if (!this.wheelStyle && this.orderMapping[this.wheelMiddleIndex] === this.wheelMiddleIndex) {
+      return;
+    }
     for (let i = 0; i < this.visibleItemsNum; i++) {
       this.orderMapping[i] = ((this.orderMapping[i] - 1 + this.itemsCount) % this.itemsCount);
     }
   }
 
+  // Scroll the wheel to the clicked number, with animation.
   numberClicked(index: number) {
     if (index < this.visibleItemsNum) {
       if (index < this.wheelMiddleIndex) {
@@ -154,26 +163,5 @@ export class PickerComponent implements OnInit {
     for (let i = 0; i < this.itemsCount; i++) {
       this.orderMapping[i] = (this.orderMapping[i] + offset) % this.itemsCount;
     }
-  }
-
-  private debounce = (fn: any) => {
-    const time = 20;
-    const threshold = 2.2;
-    let timeout: any;
-
-    return function(this: any, event: any) {
-      const currentSpeed = Math.abs(event.velocityY);
-      this.cumulativeVelocity += currentSpeed * (Math.exp(2*currentSpeed) - 1);
-
-      const functionCall = () => fn.call(this, event);
-      clearTimeout(timeout);
-
-      if (this.cumulativeVelocity > threshold) {
-        this.cumulativeVelocity = 0;
-        functionCall();
-      } else {
-        timeout = setTimeout(functionCall, time);
-      }
-    }.bind(this); // bind this to the class instance
   }
 }

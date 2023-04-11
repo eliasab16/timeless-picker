@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import {hours24} from "./constants/time";
+import { hoursArray24 } from './constants/time';
 
 @Component({
   selector: 'app-root',
@@ -8,12 +8,12 @@ import {hours24} from "./constants/time";
 })
 export class AppComponent {
   title = 'timeless-picker';
-  hours: string[] = hours24;
+  hours: string[] = hoursArray24;
   minutes: string[] = this.fillMinutes();
 
   fillMinutes() {
     const result: string[] = [];
-    for (let i = 0; i <= 60; i++) {
+    for (let i = 0; i < 60; i++) {
       const minute = i < 10 ? `0${i}` : `${i}`;
       result.push(minute);
     }
