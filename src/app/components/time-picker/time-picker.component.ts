@@ -18,7 +18,9 @@ export class TimePickerComponent {
   hours: string[] = hoursArray24;
   minutes: string[] = minutesArray;
   seconds: string[] = minutesArray;
-  dayPeriods: string[] = ['', '', '1', '2', '3', '4', '5','',''];
+  test: string[] = ['1', '2', '3', '4', '5'];
+  dayPeriods: string[] = ['AM', 'PM'];
+
 
   constructor() {
     this.hours = (this.hourFormat === 'hours24') ? hoursArray24 : hoursArray12;
