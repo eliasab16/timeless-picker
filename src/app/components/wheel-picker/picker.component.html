@@ -1,8 +1,9 @@
 <div #wheel class="wheel" (wheel)="onMouseWheel($event)">
   <ng-container *ngFor="let i of range" >
-    <div [style.opacity]="opacityMap[i]"
+    <div [style.opacity]="opacityMapping[i]"
          (click)="numberClicked(i)"
-         class="hour-digit">
+         class="hour-digit"
+         [ngClass]="'size-' + size">
       {{ displayData[orderMapping[i]] }}</div>
   </ng-container>
 </div>

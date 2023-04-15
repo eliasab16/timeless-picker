@@ -1,16 +1,10 @@
 div.wheel {
-  max-height: 210px;
-  max-width: 30px;
   overflow: hidden;
-  margin-right: 10px;
-  margin-left: 10px;
+  margin-right: var(--picker-wedge-size);
 }
 
 .hour-digit {
-  font-family: 'Roboto Condensed', sans-serif;
-  color: black;
-  font-size: 25px;
+  font-family: var(--item-main-font);
+  color: var(--item-main-color);
   text-align: center;
-  height: 30px;
-  width: 30px;
 }

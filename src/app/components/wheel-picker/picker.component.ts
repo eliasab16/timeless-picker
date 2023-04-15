@@ -1,4 +1,4 @@
-import { Component, ElementRef, Input, OnInit, ViewChild} from '@angular/core';
+import {Component, ElementRef, Input, OnInit, ViewChild} from '@angular/core';
 import * as Hammer from 'hammerjs';
 
 @Component({
@@ -8,6 +8,7 @@ import * as Hammer from 'hammerjs';
 })
 export class PickerComponent implements OnInit {
   @ViewChild('wheel', { static: true, read: ElementRef }) wheel: ElementRef = {} as ElementRef;
+  @Input() size: 'xsmall' | 'small' | 'medium' | 'large' | 'xlarge' = 'medium';
   // How many items are displayed on the wheel. Must be odd so that the selection is in the middle
   // of the wheel
   @Input() visibleItemsCount = 7;
@@ -34,12 +35,13 @@ export class PickerComponent implements OnInit {
   distThreshold = 550;
   // The index (relative to the number of visible items on the picker
   wheelMiddleIndex = 0;
-  // The number of items/numbers to be available for selection
+  // A range of the count of visible items
   range: number[] = [];
   // Maps order (as displayed to the user - or wheel index) to the item-id (the index of the
   // item within the input data list - which in turn is mapped to displayed values).
   orderMapping: {[key: number]: number} = {};
-  valueMapping: {[key: number]: string} = {};
+  // Opacity for each of the items based on position to give the impression of a 3D.
+  opacityMapping: {[key: number]: number} = {}
 
   constructor() {
     this.moveWheelUp = this.moveWheelUp.bind(this);
@@ -47,8 +49,13 @@ export class PickerComponent implements OnInit {
   }
 
   ngOnInit() {
+    if (this.visibleItemsCount % 2 == 0 || this.visibleItemsCount < 3) {
+      throw new Error('Number of visible items must be odd and between 3-9 (inclusive).');
+    }
+    this.visibleItemsCount = Math.min(this.visibleItemsCount, 9);
     // Ensures that the selected item index is not beyond the range of the number of items.
     this.selectedItemIndex %= this.displayData.length;
+    // This max is chosen for better aesthetics
     this.wheelMiddleIndex = (this.visibleItemsCount - 1) / 2;
     if (!this.infiniteWheelStyle) {
       this.displayData = this.adaptDataForBoundedStyle();
@@ -57,8 +64,9 @@ export class PickerComponent implements OnInit {
     this.range = Array.from({ length: this.visibleItemsCount }, (_, i) => i);
     this.range.map(num => {
       this.orderMapping[num] = num;
-
     });
+    this.setOpacityMapping();
+
     this.adjustItemsOrder();
 
     const mc = new Hammer.Manager(this.wheel.nativeElement);
@@ -140,14 +148,6 @@ export class PickerComponent implements OnInit {
   getSelection() {
     return this.orderMapping[this.wheelMiddleIndex];
   }
-  opacityMap: { [key: number]: number } = {
-    0: 0.15,
-    6: 0.15,
-    1: 0.35,
-    5: 0.35,
-    2: 0.5,
-    4: 0.5,
-  }
 
   onMouseWheel(event: any) {
     if (this.enableMouseWheel) {
@@ -177,5 +177,14 @@ export class PickerComponent implements OnInit {
     const emptyPaddingArray = Array(paddingCount).fill('');
     this.selectedItemIndex += paddingCount;
     return emptyPaddingArray.concat(this.displayData, emptyPaddingArray);
+  }
+
+  setOpacityMapping() {
+    for (const index of this.range) {
+      const k = Math.abs(index - this.wheelMiddleIndex);
+      const numerator = 1 - Math.pow(Math.sin((index - this.wheelMiddleIndex) / 4), 2);
+      const denominator = 1 + k;
+      this.opacityMapping[index] = numerator / denominator;
+    }
   }
 }

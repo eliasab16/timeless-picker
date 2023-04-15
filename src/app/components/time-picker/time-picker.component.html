@@ -1,15 +1,29 @@
 <div style="display: flex; justify-content: center; align-items: center;">
   <app-picker [displayData]="hours"
-              [visibleItemsCount]="7"
-              [selectedItemIndex]="15">
+              [visibleItemsCount]="visibleItemsCount"
+              [size]="size"
+              [selectedItemIndex]="10">
   </app-picker>
+
   <app-picker [displayData]="minutes"
-              [visibleItemsCount]="7"
+              [visibleItemsCount]="visibleItemsCount"
+              [size]="size"
               [selectedItemIndex]="24">
   </app-picker>
-  <app-picker [displayData]="dayPeriods"
+
+  <app-picker *ngIf="includeSeconds"
+              [displayData]="seconds"
+              [visibleItemsCount]="visibleItemsCount"
+              [size]="size"
+              [selectedItemIndex]="0">
+
+  </app-picker>
+
+  <app-picker *ngIf="hourFormat === 'hours12'"
+              [displayData]="dayPeriods"
               [visibleItemsCount]="3"
               [selectedItemIndex]="1"
+              [size]="size"
               [infiniteWheelStyle]="false">
   </app-picker>
 </div>

@@ -102,3 +102,8 @@ export const minutesArray = [
   "58",
   "59"
 ];
+
+export const periodsArray = [
+  'AM',
+  'PM'
+]
