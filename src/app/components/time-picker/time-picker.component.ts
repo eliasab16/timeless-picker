@@ -11,7 +11,7 @@ import {
   styleUrls: ['./time-picker.component.scss']
 })
 export class TimePickerComponent {
-  @Input() includeSeconds: boolean = false;
+  @Input() includeSeconds = false;
   @Input() hourFormat: 'hours24' | 'hours12' = 'hours24';
   @Input() valueFormat: 'iso' | 'simplified' = 'simplified';
 

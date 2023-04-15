@@ -18,18 +18,18 @@ export class PickerComponent implements OnInit {
   @Input() displayData: string[] = [];
   // The index of the item the user wishes to display in the middle upon initialization. The index
   // of the item within the displayData list.
-  @Input() selectedItemIndex: number = 0;
+  @Input() selectedItemIndex = 0;
   // An infinite wheel means that items can be scrolled in an infinite loop (the user can scroll
   // past the last item and before the first item). Otherwise, it's a picker bounded by it's
   // first and last items.
-  @Input() infiniteWheelStyle: boolean = true;
+  @Input() infiniteWheelStyle = true;
   // Number of items in input data
-  itemsCount: number = 0;
-  cumulativeVelocity: number = 0;
+  itemsCount = 0;
+  cumulativeVelocity = 0;
   // A normalized, cumulative measurement of user swipe distance to compare against the
   // distThreshold to determine actual movement of the picker. The speed of user swiping is
   // factored in. After an actual movement is triggered, the value is reset to zero.
-  movementMeasure: number = 0;
+  movementMeasure = 0;
   // A threshold that divides the movement measurement to control actual picker movement.
   distThreshold = 550;
   // The index (relative to the number of visible items on the picker
