@@ -1,4 +1,4 @@
-import {Component, ElementRef, Input, OnInit, ViewChild} from '@angular/core';
+import {Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
 import * as Hammer from 'hammerjs';
 
 @Component({
@@ -8,6 +8,7 @@ import * as Hammer from 'hammerjs';
 })
 export class PickerComponent implements OnInit {
   @ViewChild('wheel', { static: true, read: ElementRef }) wheel: ElementRef = {} as ElementRef;
+
   @Input() size: 'xsmall' | 'small' | 'medium' | 'large' | 'xlarge' = 'medium';
   // How many items are displayed on the wheel. Must be odd so that the selection is in the middle
   // of the wheel
@@ -21,9 +22,12 @@ export class PickerComponent implements OnInit {
   // of the item within the displayData list.
   @Input() selectedItemIndex = 0;
   // An infinite wheel means that items can be scrolled in an infinite loop (the user can scroll
-  // past the last item and before the first item). Otherwise, it's a picker bounded by it's
+  // past the last item and before the first item). Otherwise, it's a picker bounded by its
   // first and last items.
   @Input() infiniteWheelStyle = true;
+
+  @Output() newSelectedIndex = new EventEmitter<number>();
+
   // Number of items in input data
   itemsCount = 0;
   cumulativeVelocity = 0;
@@ -114,6 +118,7 @@ export class PickerComponent implements OnInit {
     for (let i = 0; i < this.visibleItemsCount; i++) {
       this.orderMapping[i] = (this.orderMapping[i] + 1) % this.itemsCount;
     }
+    this.emitNewSelection();
   }
 
   moveWheelDown() {
@@ -123,6 +128,7 @@ export class PickerComponent implements OnInit {
     for (let i = 0; i < this.visibleItemsCount; i++) {
       this.orderMapping[i] = ((this.orderMapping[i] - 1 + this.itemsCount) % this.itemsCount);
     }
+    this.emitNewSelection();
   }
 
   // Scroll the wheel to the clicked number, with animation.
@@ -145,8 +151,9 @@ export class PickerComponent implements OnInit {
     return Math.min(Math.max(factor, 0.25), 8);
   }
 
-  getSelection() {
-    return this.orderMapping[this.wheelMiddleIndex];
+  emitNewSelection() {
+    this.newSelectedIndex
+    .emit(this.orderMapping[this.wheelMiddleIndex]);
   }
 
   onMouseWheel(event: any) {
