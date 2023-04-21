@@ -26,6 +26,7 @@ export const hoursArray24 = [
 ]
 
 export const hoursArray12 = [
+  '12',
   '1',
   '2',
   '3',
@@ -36,8 +37,7 @@ export const hoursArray12 = [
   '8',
   '9',
   '10',
-  '11',
-  '12'
+  '11'
 ]
 
 export const minutesArray = [

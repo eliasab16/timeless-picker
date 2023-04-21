@@ -1,10 +1,6 @@
-import {Component, Input, OnInit} from '@angular/core';
-import {
-  hoursArray12,
-  hoursArray24,
-  minutesArray, periodsArray
-} from "../../constants/time";
-import { PickerCategory } from "../../constants/category";
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {hoursArray12, hoursArray24, minutesArray, periodsArray} from "../../constants/time";
+import { PeriodIndex, PickerCategory, TimeIndex} from "../../constants/category";
 
 @Component({
   selector: 'app-time-picker',
@@ -13,16 +9,23 @@ import { PickerCategory } from "../../constants/category";
 })
 export class TimePickerComponent implements OnInit{
   @Input() size: 'xsmall' | 'small' | 'medium' | 'large' | 'xlarge' = 'medium';
-  @Input() includeSeconds = false;
+  @Input() showSeconds = false;
   @Input() hourFormat: 'hours24' | 'hours12' = 'hours24';
   @Input() valueFormat: 'iso' | 'simplified' = 'simplified';
   @Input() visibleItemsCount = 7;
+  @Input() startTime: string | Date = '11:25:00';
+
+  @Output() timeChangeSimple = new EventEmitter<string>();
+  @Output() timeChangeIso = new EventEmitter<Date>();
+
 
   pickerCategory = PickerCategory;
-  hoursSelectedIndex = 8;
-  minutesSelectedIndex = 26;
-  secondsSelectedIndex = 20;
-  periodSelectedIndex = 0;
+  selectedIndex: TimeIndex = {
+    hours: 11,
+    minutes: 25,
+    seconds: 20,
+    period: 0
+  }
 
   hours: string[] = hoursArray24;
   minutes: string[] = minutesArray;
@@ -31,22 +34,35 @@ export class TimePickerComponent implements OnInit{
 
   ngOnInit() {
     this.hours = (this.hourFormat === 'hours24') ? hoursArray24 : hoursArray12;
+    this.convertTimeToIndex(this.startTime, this.selectedIndex);
   }
 
   indexChange(newIndex: number, type: string) {
     switch (type) {
       case this.pickerCategory.hours:
-        this.hoursSelectedIndex = newIndex;
+        this.selectedIndex.hours = newIndex;
         break;
       case this.pickerCategory.minutes:
-        this.minutesSelectedIndex = newIndex;
+        this.selectedIndex.minutes = newIndex;
         break;
       case this.pickerCategory.seconds:
-        this.secondsSelectedIndex = newIndex;
+        this.selectedIndex.seconds = newIndex;
         break;
       case this.pickerCategory.period:
-        this.periodSelectedIndex = newIndex;
+        this.selectedIndex.period = newIndex;
     }
-    console.log(this.hoursSelectedIndex, this.minutesSelectedIndex, this.secondsSelectedIndex, this.periodSelectedIndex)
+  }
+
+  convertTimeToIndex(timeInput: string | Date, selectedIndex: TimeIndex) {
+    const time = new Date(timeInput);
+    if (this.hourFormat === 'hours24') {
+      selectedIndex.hours = time.getHours()
+    } else {
+      const hours = time.getHours() % 12;
+      selectedIndex.period = (hours >= 12) ? PeriodIndex.PM : PeriodIndex.AM;
+      selectedIndex.hours = (hours === 0) ? 12 : hours;
+    }
+    selectedIndex.minutes = time.getMinutes();
+    selectedIndex.seconds = time.getSeconds();
   }
 }

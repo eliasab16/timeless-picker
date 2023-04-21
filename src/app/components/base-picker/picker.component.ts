@@ -25,6 +25,7 @@ export class PickerComponent implements OnInit {
   // past the last item and before the first item). Otherwise, it's a picker bounded by its
   // first and last items.
   @Input() infiniteWheelStyle = true;
+  @Input() enableOpacity = true;
 
   @Output() newSelectedIndex = new EventEmitter<number>();
 
@@ -39,13 +40,14 @@ export class PickerComponent implements OnInit {
   distThreshold = 550;
   // The index (relative to the number of visible items on the picker
   wheelMiddleIndex = 0;
-  // A range of the count of visible items
+  // A range of the count of visible items, e.g. range = [0 ... 6] if visibleItemsCount = 7
   range: number[] = [];
   // Maps order (as displayed to the user - or wheel index) to the item-id (the index of the
   // item within the input data list - which in turn is mapped to displayed values).
   orderMapping: {[key: number]: number} = {};
   // Opacity for each of the items based on position to give the impression of a 3D.
   opacityMapping: {[key: number]: number} = {}
+  indexPaddingSize = 0;
 
   constructor() {
     this.moveWheelUp = this.moveWheelUp.bind(this);
@@ -54,7 +56,8 @@ export class PickerComponent implements OnInit {
 
   ngOnInit() {
     if (this.visibleItemsCount % 2 == 0 || this.visibleItemsCount < 3) {
-      throw new Error('Number of visible items must be odd and between 3-9 (inclusive).');
+      throw new Error('Number of visible items must be odd and between 3-9 (inclusive). Consult' +
+        ' the documentations for more information.');
     }
     this.visibleItemsCount = Math.min(this.visibleItemsCount, 9);
     // Ensures that the selected item index is not beyond the range of the number of items.
@@ -62,6 +65,7 @@ export class PickerComponent implements OnInit {
     // This max is chosen for better aesthetics
     this.wheelMiddleIndex = (this.visibleItemsCount - 1) / 2;
     if (!this.infiniteWheelStyle) {
+      this.indexPaddingSize = Math.floor(this.visibleItemsCount / 2);
       this.displayData = this.adaptDataForBoundedStyle();
     }
     this.itemsCount = this.displayData.length;
@@ -69,10 +73,11 @@ export class PickerComponent implements OnInit {
     this.range.map(num => {
       this.orderMapping[num] = num;
     });
-    this.setOpacityMapping();
 
-    this.adjustItemsOrder();
+    this.setOpacityMapping(this.range);
+    this.adjustItemsOrder(this.orderMapping);
 
+    // Set up the library that handles swipe/scroll actions
     const mc = new Hammer.Manager(this.wheel.nativeElement);
     const pan = new Hammer.Pan({
       direction: Hammer.DIRECTION_VERTICAL,
@@ -103,10 +108,10 @@ export class PickerComponent implements OnInit {
     }
   }
 
-  callFor(fn: any, times: number, timeout?: number) {
+  callFor(func: any, times: number, timeout?: number) {
     for (let i = 0; i < times; i++) {
       setTimeout(() => {
-        fn();
+        func();
       }, timeout ? timeout * i : 0);
     }
   }
@@ -153,7 +158,7 @@ export class PickerComponent implements OnInit {
 
   emitNewSelection() {
     this.newSelectedIndex
-    .emit(this.orderMapping[this.wheelMiddleIndex]);
+    .emit(this.orderMapping[this.wheelMiddleIndex - this.indexPaddingSize]);
   }
 
   onMouseWheel(event: any) {
@@ -166,28 +171,30 @@ export class PickerComponent implements OnInit {
     }
   }
 
-  adjustItemsOrder() {
+  // Changes the order of the input data to align the user's choice of the initially selected item
+  adjustItemsOrder(orderMapping: {[key: number]: number}) {
     // The number of steps needed to move the target item (specified by the user) to the middle
     // of the wheel.
     const distance = this.wheelMiddleIndex - this.selectedItemIndex;
     const offset = ((- distance % this.itemsCount) + this.itemsCount) % this.itemsCount;
     for (let i = 0; i < this.itemsCount; i++) {
-      this.orderMapping[i] = (this.orderMapping[i] + offset) % this.itemsCount;
+      orderMapping[i] = (orderMapping[i] + offset) % this.itemsCount;
     }
   }
 
   // Adds padding (or empty placeholder items) to the beginning and end of the input data list
-  // if the user chooses the bounded wheel mode. This allows the wheel to scroll the first and
+  // if the user chooses the bounded wheel mode. This allows the wheel to scroll to the first and
   // last items.
   adaptDataForBoundedStyle(): string[] {
-    const paddingCount = Math.floor(this.visibleItemsCount / 2);
-    const emptyPaddingArray = Array(paddingCount).fill('');
-    this.selectedItemIndex += paddingCount;
+    const emptyPaddingArray = Array(this.indexPaddingSize).fill('');
+    this.selectedItemIndex += this.indexPaddingSize;
     return emptyPaddingArray.concat(this.displayData, emptyPaddingArray);
   }
 
-  setOpacityMapping() {
-    for (const index of this.range) {
+  // Change the opacity (gradually) of the items before and after the selected item to give the
+  // impression of a turning wheel.
+  setOpacityMapping(range: number[]) {
+    for (const index of range) {
       const k = Math.abs(index - this.wheelMiddleIndex);
       const numerator = 1 - Math.pow(Math.sin((index - this.wheelMiddleIndex) / 4), 2);
       const denominator = 1 + k;
