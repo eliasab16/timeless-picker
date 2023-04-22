@@ -3,11 +3,6 @@ import {
   hoursArray12,
   hoursArray24,
   minutesArray1,
-  minutesArray5,
-  minutesArray10,
-  minutesArray15,
-  minutesArray20,
-  minutesArray30,
   periodsArray, minutesArray
 } from "../../constants/time";
 import { PeriodIndex, PickerCategory, TimeIndex} from "../../constants/category";
@@ -18,6 +13,7 @@ import { PeriodIndex, PickerCategory, TimeIndex} from "../../constants/category"
   styleUrls: ['./time-picker.component.scss']
 })
 export class TimePickerComponent implements OnInit{
+  @Input() borderStyle: 'stripe' | 'boxes' | 'none' = 'none';
   @Input() size: 'xsmall' | 'small' | 'medium' | 'large' | 'xlarge' = 'medium';
   @Input() hourFormat: 'hours24' | 'hours12' = 'hours24';
   // simple: HH:ss:mm

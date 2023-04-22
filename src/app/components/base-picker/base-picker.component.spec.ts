@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { PickerComponent } from './picker.component';
+import { BasePickerComponent } from './base-picker.component';
 
 describe('PickerComponent', () => {
-  let component: PickerComponent;
-  let fixture: ComponentFixture<PickerComponent>;
+  let component: BasePickerComponent;
+  let fixture: ComponentFixture<BasePickerComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ PickerComponent ]
+      declarations: [ BasePickerComponent ]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(PickerComponent);
+    fixture = TestBed.createComponent(BasePickerComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

@@ -6,5 +6,12 @@ div.wheel {
 .hour-digit {
   font-family: var(--item-main-font);
   color: var(--item-main-color);
-  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.border-base {
+  border: 1px solid black;
+  border-radius: 5px;
 }

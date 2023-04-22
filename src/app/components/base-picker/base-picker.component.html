@@ -3,7 +3,8 @@
     <div [style.opacity]="enableOpacity ? opacityMapping[i] : 1"
          (click)="numberClicked(i)"
          class="hour-digit"
-         [ngClass]="'size-' + size">
-      {{ displayData[orderMapping[i]] }}</div>
+         [ngClass]="['size-' + size, addBorder && i === wheelMiddleIndex ? 'border-base': '']">
+      {{ displayData[orderMapping[i]] }}
+    </div>
   </ng-container>
 </div>
