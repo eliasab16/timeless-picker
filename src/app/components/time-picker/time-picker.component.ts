@@ -9,15 +9,16 @@ import { PeriodIndex, PickerCategory, TimeIndex} from "../../constants/category"
 })
 export class TimePickerComponent implements OnInit{
   @Input() size: 'xsmall' | 'small' | 'medium' | 'large' | 'xlarge' = 'medium';
-  @Input() showSeconds = false;
   @Input() hourFormat: 'hours24' | 'hours12' = 'hours24';
-  @Input() valueFormat: 'iso' | 'simplified' = 'simplified';
+  // simple: HH:ss:mm
+  @Input() valueFormat: 'iso' | 'simple' = 'simple';
+  @Input() showSeconds = false;
   @Input() visibleItemsCount = 7;
-  @Input() startTime: string | Date = '11:25:00';
+  @Input() startTime = '11:25:10';
 
+  // Return the time in both ISO and simple format
+  @Output() timeChangeIso = new EventEmitter<string>();
   @Output() timeChangeSimple = new EventEmitter<string>();
-  @Output() timeChangeIso = new EventEmitter<Date>();
-
 
   pickerCategory = PickerCategory;
   selectedIndex: TimeIndex = {
@@ -27,6 +28,7 @@ export class TimePickerComponent implements OnInit{
     period: 0
   }
 
+  // Input arrays to pass to the picker
   hours: string[] = hoursArray24;
   minutes: string[] = minutesArray;
   seconds: string[] = minutesArray;
@@ -37,7 +39,7 @@ export class TimePickerComponent implements OnInit{
     this.convertTimeToIndex(this.startTime, this.selectedIndex);
   }
 
-  indexChange(newIndex: number, type: string) {
+  selectionChange(newIndex: number, type: string) {
     switch (type) {
       case this.pickerCategory.hours:
         this.selectedIndex.hours = newIndex;
@@ -51,18 +53,62 @@ export class TimePickerComponent implements OnInit{
       case this.pickerCategory.period:
         this.selectedIndex.period = newIndex;
     }
+
+    this.emitTimeChange(this.selectedIndex);
   }
 
-  convertTimeToIndex(timeInput: string | Date, selectedIndex: TimeIndex) {
-    const time = new Date(timeInput);
-    if (this.hourFormat === 'hours24') {
-      selectedIndex.hours = time.getHours()
+  // The base picker component doesn't care what the value is, but it rather works with the
+  // index within the input data array, so we must translate time to index (that matches the
+  // predefined times constants).
+  convertTimeToIndex(timeInput: string, selectedIndexes: TimeIndex) {
+    let hoursInput: number;
+    const timeDate = new Date(timeInput);
+    // Determine if the input string is in ISO or simple HH:mm:ss format
+    if (!isNaN(timeDate.getTime())) {
+      selectedIndexes.minutes = timeDate.getMinutes();
+      selectedIndexes.seconds = timeDate.getSeconds();
+      hoursInput = timeDate.getHours();
     } else {
-      const hours = time.getHours() % 12;
-      selectedIndex.period = (hours >= 12) ? PeriodIndex.PM : PeriodIndex.AM;
-      selectedIndex.hours = (hours === 0) ? 12 : hours;
+      const [hours, minutes, seconds=0] = timeInput.split(':').map(Number);
+      selectedIndexes.minutes = minutes;
+      selectedIndexes.seconds = seconds;
+      hoursInput = hours;
     }
-    selectedIndex.minutes = time.getMinutes();
-    selectedIndex.seconds = time.getSeconds();
+
+    if (this.hourFormat === 'hours24') {
+      selectedIndexes.hours = hoursInput
+    } else {
+      const hours = hoursInput % 12;
+      selectedIndexes.period = (hours >= 12) ? PeriodIndex.PM : PeriodIndex.AM;
+      selectedIndexes.hours = (hours === 0) ? 12 : hours;
+    }
+  }
+
+  emitTimeChange(selectedIndexes: TimeIndex) {
+    // We have to convert the index back to time format (both ISO and simple)
+    let hoursInput: number = this.selectedIndex.hours;
+    if (this.hourFormat === 'hours12') {
+      hoursInput = selectedIndexes.hours + (12 * selectedIndexes.period);
+      hoursInput %= 24;
+    }
+
+    const hours = hoursInput.toString().padStart(2, '0')
+    const minutes = selectedIndexes.minutes.toString().padStart(2, '0');
+    const seconds = selectedIndexes.seconds.toString().padStart(2, '0');
+
+    const timeSimple = `${hours}:${minutes}:${seconds}`;
+
+    const currentDate = new Date();
+    const timeIso = new Date(
+      currentDate.getFullYear(),
+      currentDate.getMonth(),
+      currentDate.getDate(),
+      hoursInput,
+      selectedIndexes.minutes,
+      selectedIndexes.seconds
+    )
+
+    this.timeChangeSimple.emit(timeSimple);
+    this.timeChangeIso.emit(timeIso.toISOString());
   }
 }

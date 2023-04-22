@@ -3,14 +3,14 @@
               [visibleItemsCount]="visibleItemsCount"
               [size]="size"
               [selectedItemIndex]="selectedIndex.hours"
-              (newSelectedIndex)="indexChange($event, pickerCategory.hours)">
+              (newSelectedIndex)="selectionChange($event, pickerCategory.hours)">
   </app-picker>
 
   <app-picker [displayData]="minutes"
               [visibleItemsCount]="visibleItemsCount"
               [size]="size"
               [selectedItemIndex]="selectedIndex.minutes"
-              (newSelectedIndex)="indexChange($event, pickerCategory.minutes)">
+              (newSelectedIndex)="selectionChange($event, pickerCategory.minutes)">
   </app-picker>
 
   <app-picker *ngIf="showSeconds"
@@ -18,7 +18,7 @@
               [visibleItemsCount]="visibleItemsCount"
               [size]="size"
               [selectedItemIndex]="selectedIndex.seconds"
-              (newSelectedIndex)="indexChange($event,pickerCategory.seconds)">
+              (newSelectedIndex)="selectionChange($event,pickerCategory.seconds)">
   </app-picker>
 
   <app-picker *ngIf="hourFormat === 'hours12'"
@@ -27,6 +27,6 @@
               [selectedItemIndex]="selectedIndex.period"
               [size]="size"
               [infiniteWheelStyle]="false"
-              (newSelectedIndex)="indexChange($event, pickerCategory.period)">
+              (newSelectedIndex)="selectionChange($event, pickerCategory.period)">
   </app-picker>
 </div>

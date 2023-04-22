@@ -3,5 +3,7 @@
 <app-time-picker
   [hourFormat]="'hours12'"
   [size]="'large'"
-  [visibleItemsCount]="5">
+  [visibleItemsCount]="5"
+  (timeChangeSimple)="timeChangeSimple($event)"
+  (timeChangeIso)="timeChangeIso($event)">
 </app-time-picker>
