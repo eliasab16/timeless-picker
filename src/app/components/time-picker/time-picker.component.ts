@@ -1,5 +1,15 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {hoursArray12, hoursArray24, minutesArray, periodsArray} from "../../constants/time";
+import {
+  hoursArray12,
+  hoursArray24,
+  minutesArray1,
+  minutesArray5,
+  minutesArray10,
+  minutesArray15,
+  minutesArray20,
+  minutesArray30,
+  periodsArray, minutesArray
+} from "../../constants/time";
 import { PeriodIndex, PickerCategory, TimeIndex} from "../../constants/category";
 
 @Component({
@@ -14,7 +24,9 @@ export class TimePickerComponent implements OnInit{
   @Input() valueFormat: 'iso' | 'simple' = 'simple';
   @Input() showSeconds = false;
   @Input() visibleItemsCount = 7;
-  @Input() startTime = '11:25:10';
+  @Input() startTime = '11:25:00';
+  // Show minutes that are a multiple of
+  @Input() minuteStep: 1 | 5 | 10 | 15 | 20 | 30 = 1;
 
   // Return the time in both ISO and simple format
   @Output() timeChangeIso = new EventEmitter<string>();
@@ -23,19 +35,20 @@ export class TimePickerComponent implements OnInit{
   pickerCategory = PickerCategory;
   selectedIndex: TimeIndex = {
     hours: 11,
-    minutes: 25,
-    seconds: 20,
-    period: 0
+    minutes: 30,
+    seconds: 0,
+    period: PeriodIndex.AM
   }
 
   // Input arrays to pass to the picker
-  hours: string[] = hoursArray24;
-  minutes: string[] = minutesArray;
-  seconds: string[] = minutesArray;
+  hourValues: string[] = hoursArray24;
+  minuteValues: string[] = minutesArray1;
+  secondValues: string[] = minutesArray1;
   dayPeriods: string[] = periodsArray;
 
   ngOnInit() {
-    this.hours = (this.hourFormat === 'hours24') ? hoursArray24 : hoursArray12;
+    this.hourValues = (this.hourFormat === 'hours24') ? hoursArray24 : hoursArray12;
+    this.minuteValues = minutesArray[this.minuteStep];
     this.convertTimeToIndex(this.startTime, this.selectedIndex);
   }
 
@@ -75,6 +88,12 @@ export class TimePickerComponent implements OnInit{
       hoursInput = hours;
     }
 
+    // Make sure that the starting value of the minutes is a multiple of the minuteStep; round up
+    // to the nearest multiple otherwise.
+    selectedIndexes.minutes = Math.round(selectedIndexes.minutes / this.minuteStep) * this.minuteStep;
+    // Adjust the index based on the step value
+    selectedIndexes.minutes /= this.minuteStep;
+
     if (this.hourFormat === 'hours24') {
       selectedIndexes.hours = hoursInput
     } else {
@@ -93,22 +112,25 @@ export class TimePickerComponent implements OnInit{
     }
 
     const hours = hoursInput.toString().padStart(2, '0')
-    const minutes = selectedIndexes.minutes.toString().padStart(2, '0');
+    const minutes = (selectedIndexes.minutes * this.minuteStep).toString().padStart(2, '0');
     const seconds = selectedIndexes.seconds.toString().padStart(2, '0');
 
     const timeSimple = `${hours}:${minutes}:${seconds}`;
 
-    const currentDate = new Date();
-    const timeIso = new Date(
-      currentDate.getFullYear(),
-      currentDate.getMonth(),
-      currentDate.getDate(),
-      hoursInput,
-      selectedIndexes.minutes,
-      selectedIndexes.seconds
+    const timeIso = new Date();
+    timeIso.setHours(
+      Number(hours),
+      Number(minutes),
+      Number(seconds),
+      0
     )
 
     this.timeChangeSimple.emit(timeSimple);
     this.timeChangeIso.emit(timeIso.toISOString());
+  }
+
+  minutesInfiniteStyle(): boolean {
+    const uniqueValues = 60 / this.minuteStep;
+    return uniqueValues >= this.visibleItemsCount;
   }
 }

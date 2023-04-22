@@ -1,20 +1,21 @@
 <div style="display: flex; justify-content: center; align-items: center;">
-  <app-picker [displayData]="hours"
+  <app-picker [displayData]="hourValues"
               [visibleItemsCount]="visibleItemsCount"
               [size]="size"
               [selectedItemIndex]="selectedIndex.hours"
               (newSelectedIndex)="selectionChange($event, pickerCategory.hours)">
   </app-picker>
 
-  <app-picker [displayData]="minutes"
+  <app-picker [displayData]="minuteValues"
               [visibleItemsCount]="visibleItemsCount"
               [size]="size"
               [selectedItemIndex]="selectedIndex.minutes"
+              [infiniteWheelStyle]="minutesInfiniteStyle()"
               (newSelectedIndex)="selectionChange($event, pickerCategory.minutes)">
   </app-picker>
 
   <app-picker *ngIf="showSeconds"
-              [displayData]="seconds"
+              [displayData]="secondValues"
               [visibleItemsCount]="visibleItemsCount"
               [size]="size"
               [selectedItemIndex]="selectedIndex.seconds"

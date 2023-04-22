@@ -8,7 +8,8 @@ import { Component } from '@angular/core';
 export class AppComponent {
   title = 'timeless-picker';
   timeChangeIso(newTime: string) {
-    console.log(`new iso time:`, newTime);
+    const time = new Date(newTime);
+    console.log(`new iso time:`, time.getHours(), time.getMinutes(), time.getSeconds());
   }
 
   timeChangeSimple(newTime: string) {
