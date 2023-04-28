@@ -1,11 +1,23 @@
 @import url('https://fonts.googleapis.com/css?family=Roboto+Condensed');
 
 :root {
+  --background-color: white;
+  --text-color: black;
+  --primary-color: black;
+  --secondary-color: white;
+
+  // Selection box styles
+  --selection-box-background-color: none;
+  --selection-box-border-color: none;
+  --selection-box-border-radius: 8px;
+  --selection-box-border-width: 0;
+  --selection-box-border-style: solid;
+
   --item-main-color: black;
   --item-main-font: 'Roboto Condensed', sans-serif;
 
   // The distance between each wheel picker
-  --picker-wedge-size: 1em;
+  --picker-wedge-size: 0.8em;
 
   --size-xsmall: 1em;
   --size-small: 1.2em;
