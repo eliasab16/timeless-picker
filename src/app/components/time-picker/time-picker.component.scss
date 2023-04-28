@@ -3,19 +3,23 @@
   justify-content: center;
   align-items: center;
   position: relative;
+  background: var(--background-color);
 }
 
 app-picker {
-  z-index: 10;
+  z-index: 20;
 }
 
 .selection-box {
-  z-index: 20;
+  z-index: 10;
   position: absolute;
   height: 1.6em;
   width: 100%;
-  border: 1px solid black;
   border-radius: 8px;
+  border-width: var(--selection-box-border-width);
+  border-style: var(--selection-box-border-style);
+  border-color: var(--selection-box-border-color);
+  background: var(--selection-box-background-color);
 }
 
 

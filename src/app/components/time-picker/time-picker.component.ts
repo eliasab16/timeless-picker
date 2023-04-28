@@ -6,6 +6,7 @@ import {
   periodsArray, minutesArray
 } from "../../constants/time";
 import { PeriodIndex, PickerCategory, TimeIndex} from "../../constants/category";
+import {ThemeService} from "../../services/theme-service/theme.service";
 
 @Component({
   selector: 'app-time-picker',
@@ -13,8 +14,21 @@ import { PeriodIndex, PickerCategory, TimeIndex} from "../../constants/category"
   styleUrls: ['./time-picker.component.scss']
 })
 export class TimePickerComponent implements OnInit{
-  @Input() borderStyle: 'stripe' | 'boxes' | 'none' = 'none';
+  /** Component general style configurations **/
+  @Input() theme: 'dark' | 'light' = 'light';
+  // Determines the size of the time picker component
   @Input() size: 'xsmall' | 'small' | 'medium' | 'large' | 'xlarge' = 'medium';
+
+
+  /** Selection box configuration (highlights the selected items) **/
+  @Input() selectionBoxStyle: 'highlight' | 'boxes' | 'none' = 'none';
+  // Draws a solid border around the selection box
+  @Input() selectionBoxBorder = false;
+  // Adds background color to the selection box
+  @Input() selectionBoxBackground = true;
+
+
+  /** Time configurations **/
   @Input() hourFormat: 'hours24' | 'hours12' = 'hours24';
   // simple: HH:ss:mm
   @Input() valueFormat: 'iso' | 'simple' = 'simple';
@@ -24,7 +38,8 @@ export class TimePickerComponent implements OnInit{
   // Show minutes that are a multiple of
   @Input() minuteStep: 1 | 5 | 10 | 15 | 20 | 30 = 1;
 
-  // Return the time in both ISO and simple format
+
+  /** Return the time in both ISO and simple format **/
   @Output() timeChangeIso = new EventEmitter<string>();
   @Output() timeChangeSimple = new EventEmitter<string>();
 
@@ -42,7 +57,13 @@ export class TimePickerComponent implements OnInit{
   secondValues: string[] = minutesArray1;
   dayPeriods: string[] = periodsArray;
 
+  constructor(
+    private readonly themeService: ThemeService,
+  ) {
+  }
+
   ngOnInit() {
+    this.themeService.setMainTheme(this.theme, this.selectionBoxBorder, this.selectionBoxBackground);
     this.hourValues = (this.hourFormat === 'hours24') ? hoursArray24 : hoursArray12;
     this.minuteValues = minutesArray[this.minuteStep];
     this.convertTimeToIndex(this.startTime, this.selectedIndex);
