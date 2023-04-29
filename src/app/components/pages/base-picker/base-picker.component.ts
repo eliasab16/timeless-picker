@@ -2,7 +2,7 @@ import {Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild} f
 import * as Hammer from 'hammerjs';
 
 @Component({
-  selector: 'base-picker',
+  selector: 'timeless-base-picker',
   templateUrl: './base-picker.component.html',
   styleUrls: ['./base-picker.component.scss']
 })

@@ -9,7 +9,7 @@ import { PeriodIndex, PickerCategory, TimeIndex} from "../../../constants/catego
 import { ThemeService } from "../../../services/theme-service/theme.service";
 
 @Component({
-  selector: 'time-picker',
+  selector: 'timeless-time-picker',
   templateUrl: './time-picker.component.html',
   styleUrls: ['./time-picker.component.scss']
 })
