@@ -1,4 +1,4 @@
-.pickers-container {
+.timeless-container {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -6,14 +6,14 @@
   background: var(--background-color);
 }
 
-app-picker {
+base-picker {
   z-index: 20;
 }
 
-.selection-box {
+.selection-box-spanning {
   z-index: 10;
   position: absolute;
-  height: 1.6em;
+  height: 1.8em;
   width: 100%;
   border-radius: 8px;
   border-width: var(--selection-box-border-width);
@@ -22,4 +22,12 @@ app-picker {
   background: var(--selection-box-background-color);
 }
 
+.selection-box {
+  z-index: 10;
+  position: absolute;
+  height: 1.6em;
+  width: 2em;
+  border: 1px solid black;
+  border-radius: 8px;
+}
 

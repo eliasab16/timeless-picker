@@ -4,12 +4,12 @@ import {
   hoursArray24,
   minutesArray1,
   periodsArray, minutesArray
-} from "../../constants/time";
-import { PeriodIndex, PickerCategory, TimeIndex} from "../../constants/category";
-import {ThemeService} from "../../services/theme-service/theme.service";
+} from "../../../constants/time";
+import { PeriodIndex, PickerCategory, TimeIndex} from "../../../constants/category";
+import { ThemeService } from "../../../services/theme-service/theme.service";
 
 @Component({
-  selector: 'app-time-picker',
+  selector: 'time-picker',
   templateUrl: './time-picker.component.html',
   styleUrls: ['./time-picker.component.scss']
 })
@@ -21,7 +21,7 @@ export class TimePickerComponent implements OnInit{
 
 
   /** Selection box configuration (highlights the selected items) **/
-  @Input() selectionBoxStyle: 'highlight' | 'boxes' | 'none' = 'none';
+  @Input() selectionHighlightStyle: 'spanning' | 'boxes' | 'none' = 'none';
   // Draws a solid border around the selection box
   @Input() selectionBoxBorder = false;
   // Adds background color to the selection box

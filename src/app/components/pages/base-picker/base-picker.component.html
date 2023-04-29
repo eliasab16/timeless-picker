@@ -5,6 +5,9 @@
          class="hour-digit"
          [ngClass]="['size-' + size, addBorder && i === wheelMiddleIndex ? 'border-base': '']">
       {{ displayData[orderMapping[i]] }}
+      <ng-container  class="content-container" *ngIf="i === wheelMiddleIndex">
+        <ng-content select="[selection-box]"></ng-content>
+      </ng-container>
     </div>
   </ng-container>
 </div>

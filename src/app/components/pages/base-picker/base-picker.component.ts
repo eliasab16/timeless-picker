@@ -2,32 +2,36 @@ import {Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild} f
 import * as Hammer from 'hammerjs';
 
 @Component({
-  selector: 'app-picker',
+  selector: 'base-picker',
   templateUrl: './base-picker.component.html',
   styleUrls: ['./base-picker.component.scss']
 })
 export class BasePickerComponent implements OnInit {
   @ViewChild('wheel', { static: true, read: ElementRef }) wheel: ElementRef = {} as ElementRef;
 
+  // An infinite wheel means that items can be scrolled in an infinite loop (the user can scroll
+  // past the last item and before the first item). Otherwise, it's a picker bounded by its
+  // first and last items.
+  @Input() infiniteWheelStyle = true;
   @Input() size: 'xsmall' | 'small' | 'medium' | 'large' | 'xlarge' = 'medium';
+  @Input() enableOpacity = true;
+  // Draw a box around the middle (selected) element of each picker
+  @Input() addBorder = false;
+
+
   // How many items are displayed on the wheel. Must be odd so that the selection is in the middle
   // of the wheel
   @Input() visibleItemsCount = 7;
-  // Enables scrolling using the mouse wheel
-  @Input() enableMouseWheel = true;
   // A list of the data to display, ordered relatively - i.e. items ordered relative to each
   // other, and not necessarily according to how they are displayed on the wheel.
   @Input() displayData: string[] = [];
   // The index of the item the user wishes to display in the middle upon initialization. The index
   // of the item within the displayData list. E.g.: [a,b,c,d,e] -> 1 displays item b in the middle
   @Input() selectedItemIndex = 0;
-  // An infinite wheel means that items can be scrolled in an infinite loop (the user can scroll
-  // past the last item and before the first item). Otherwise, it's a picker bounded by its
-  // first and last items.
-  @Input() infiniteWheelStyle = true;
-  @Input() enableOpacity = true;
-  // Draw a box around the middle (selected) element of each picker
-  @Input() addBorder = false;
+
+  // Enables scrolling using the mouse wheel
+  // todo: decide the default value
+  @Input() enableMouseWheel = true;
 
   @Output() newSelectedIndex = new EventEmitter<number>();
 

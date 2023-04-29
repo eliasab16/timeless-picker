@@ -2,13 +2,14 @@
 
 <div style="display: flex; justify-content: center">
   <div style="width: 50%">
-    <app-time-picker
+    <time-picker
       [hourFormat]="'hours12'"
       [size]="'large'"
       [visibleItemsCount]="5"
       [selectionBoxBackground]="true"
-      [selectionBoxBorder]="true"
+      [selectionBoxBorder]="false"
+      [selectionHighlightStyle]="'spanning'"
       [minuteStep]="5">
-    </app-time-picker>
+    </time-picker>
   </div>
 </div>
