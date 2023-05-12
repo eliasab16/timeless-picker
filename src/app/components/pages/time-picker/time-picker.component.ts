@@ -23,11 +23,12 @@ export class TimePickerComponent implements OnInit{
   /** Selection box configuration (highlights the selected items) **/
   @Input() selectionHighlightStyle: 'spanning' | 'boxes' | 'none' = 'none';
   // Draws a solid border around the selection box
-  @Input() selectionBoxBorder = false;
+  @Input() selectionBoxBorder = true;
   // Adds background color to the selection box
   @Input() selectionBoxBackground = true;
   // Adds a colon divider between adjacent pickers
   @Input() showDivider = false;
+  @Input()
 
 
   /** Time configurations **/
@@ -66,6 +67,7 @@ export class TimePickerComponent implements OnInit{
 
   ngOnInit() {
     this.themeService.setMainTheme(this.theme, this.selectionBoxBorder, this.selectionBoxBackground);
+    console.log(`add box: `, this.selectionBoxBorder);
     this.hourValues = (this.hourFormat === 'hours24') ? hoursArray24 : hoursArray12;
     this.minuteValues = minutesArray[this.minuteStep];
     this.convertTimeToIndex(this.startTime, this.selectedIndex);
