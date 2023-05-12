@@ -26,6 +26,8 @@ export class TimePickerComponent implements OnInit{
   @Input() selectionBoxBorder = false;
   // Adds background color to the selection box
   @Input() selectionBoxBackground = true;
+  // Adds a colon divider between adjacent pickers
+  @Input() showDivider = false;
 
 
   /** Time configurations **/

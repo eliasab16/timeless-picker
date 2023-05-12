@@ -1,13 +1,17 @@
 <div #wheel class="wheel" (wheel)="onMouseWheel($event)">
   <ng-container *ngFor="let i of range" >
-    <div [style.opacity]="enableOpacity ? opacityMapping[i] : 1"
-         (click)="numberClicked(i)"
-         class="hour-digit"
-         [ngClass]="['size-' + size, addBorder && i === wheelMiddleIndex ? 'border-base': '']">
+    <div
+      [style.opacity]="enableOpacity ? opacityMapping[i] : 1"
+      (click)="numberClicked(i)"
+      class="hour-digit"
+      [ngClass]="['size-' + size, addBorder && i === wheelMiddleIndex ? 'border-base': '']"
+    >
       {{ displayData[orderMapping[i]] }}
+
       <ng-container  class="content-container" *ngIf="i === wheelMiddleIndex">
         <ng-content select="[selection-box]"></ng-content>
       </ng-container>
+
     </div>
   </ng-container>
 </div>

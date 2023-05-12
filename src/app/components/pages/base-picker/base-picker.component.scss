@@ -1,7 +1,17 @@
 div.wheel {
-  overflow: hidden;
-  margin-right: var(--picker-wedge-size);
+  //overflow: hidden;
+  //margin-right: var(--picker-wedge-size);
+  //position: relative;
 }
+
+//div.wheel::after {
+//  content: ":";
+//  position: absolute;
+//  top: 50%;
+//  right: calc(-1 * var(--picker-wedge-size) / 2);
+//  font-size: 24px;
+//  transform: translateY(-50%);
+//}
 
 .hour-digit {
   font-family: var(--item-main-font);
@@ -15,3 +25,4 @@ div.wheel {
   border: 1px solid black;
   border-radius: 5px;
 }
+
