@@ -1,28 +1,9 @@
-div.wheel {
-  //overflow: hidden;
-  //margin-right: var(--picker-wedge-size);
-  //position: relative;
-}
-
-//div.wheel::after {
-//  content: ":";
-//  position: absolute;
-//  top: 50%;
-//  right: calc(-1 * var(--picker-wedge-size) / 2);
-//  font-size: 24px;
-//  transform: translateY(-50%);
-//}
-
 .hour-digit {
   font-family: var(--item-main-font);
-  color: var(--text-color);
+  color: var(--primary-color);
   display: flex;
   align-items: center;
   justify-content: center;
-}
-
-.border-base {
-  border: 1px solid black;
-  border-radius: 5px;
+  z-index: 20;
 }
 

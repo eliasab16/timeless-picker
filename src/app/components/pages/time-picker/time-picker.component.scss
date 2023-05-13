@@ -15,6 +15,7 @@ timeless-base-picker {
 /* position the colon divider in the middle between adjacent pickers - half the margin */
 timeless-base-picker.wheel-divider::after {
   content: ":";
+  color: var(--selection-box-border-color);
   position: absolute;
   top: 50%;
   right: calc(-1 * var(--picker-wedge-size) / 2);
@@ -25,23 +26,22 @@ timeless-base-picker.wheel-divider::after {
 .selection-box-spanning {
   z-index: 10; /* placed below timeless-base-picker so as not to interfere with scrolling */
   position: absolute;
-  height: 1.8em;
+  height: calc(100% / 6);
   width: 100%;
-  border-radius: 8px;
+  border-radius: var(--selection-box-border-radius);
   border-width: var(--selection-box-border-width);
   border-style: var(--selection-box-border-style);
   border-color: var(--selection-box-border-color);
   background: var(--selection-box-background-color);
 }
 
-.selection-box {
+div.selection-box {
   z-index: 10;
   position: absolute;
   width: var(--selection-box-width);
   aspect-ratio: var(--selection-box-height-ratio);
+  border-radius: var(--selection-box-border-radius);
   border-width: var(--selection-box-border-width);
   border-style: var(--selection-box-border-style);
-  border-color: black;
-  //border: 1px solid black;
-  border-radius: 8px;
+  border-color: var(--selection-box-border-color);
 }

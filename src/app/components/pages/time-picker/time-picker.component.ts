@@ -7,6 +7,7 @@ import {
 } from "../../../constants/time";
 import { PeriodIndex, PickerCategory, TimeIndex} from "../../../constants/category";
 import { ThemeService } from "../../../services/theme-service/theme.service";
+import {darkTheme, lightTheme, Theme} from "../../../constants/themes";
 
 @Component({
   selector: 'timeless-time-picker',
@@ -16,19 +17,20 @@ import { ThemeService } from "../../../services/theme-service/theme.service";
 export class TimePickerComponent implements OnInit{
   /** Component general style configurations **/
   @Input() theme: 'dark' | 'light' = 'light';
+  @Input() customLightTheme: Partial<Theme> = lightTheme;
+  @Input() customDarkTheme: Partial<Theme> = darkTheme;
   // Determines the size of the time picker component
   @Input() size: 'xsmall' | 'small' | 'medium' | 'large' | 'xlarge' = 'medium';
 
 
   /** Selection box configuration (highlights the selected items) **/
-  @Input() selectionHighlightStyle: 'spanning' | 'boxes' | 'none' = 'none';
+  @Input() selectionHighlightStyle: 'spanning' | 'separate' | 'none' = 'none';
   // Draws a solid border around the selection box
   @Input() selectionBoxBorder = true;
   // Adds background color to the selection box
   @Input() selectionBoxBackground = true;
   // Adds a colon divider between adjacent pickers
   @Input() showDivider = false;
-  @Input()
 
 
   /** Time configurations **/
@@ -62,12 +64,12 @@ export class TimePickerComponent implements OnInit{
 
   constructor(
     private readonly themeService: ThemeService,
-  ) {
-  }
+  ) {}
 
   ngOnInit() {
+    this.themeService.createThemes(this.customLightTheme, this.customDarkTheme);
     this.themeService.setMainTheme(this.theme, this.selectionBoxBorder, this.selectionBoxBackground);
-    console.log(`add box: `, this.selectionBoxBorder);
+
     this.hourValues = (this.hourFormat === 'hours24') ? hoursArray24 : hoursArray12;
     this.minuteValues = minutesArray[this.minuteStep];
     this.convertTimeToIndex(this.startTime, this.selectedIndex);
