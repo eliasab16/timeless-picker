@@ -4,28 +4,34 @@ import {
   hoursArray24,
   minutesArray1,
   periodsArray, minutesArray
-} from "../../constants/time";
-import { PeriodIndex, PickerCategory, TimeIndex} from "../../constants/category";
-import {ThemeService} from "../../services/theme-service/theme.service";
+} from "../../../constants/time";
+import { PeriodIndex, PickerCategory, TimeIndex} from "../../../constants/category";
+import { ThemeService } from "../../../services/theme-service/theme.service";
+import {darkTheme, lightTheme, Theme} from "../../../constants/themes";
 
 @Component({
-  selector: 'app-time-picker',
+  selector: 'timeless-time-picker',
   templateUrl: './time-picker.component.html',
   styleUrls: ['./time-picker.component.scss']
 })
 export class TimePickerComponent implements OnInit{
   /** Component general style configurations **/
   @Input() theme: 'dark' | 'light' = 'light';
+  // User customized themes to substitute the defaults
+  @Input() customLightTheme: Partial<Theme> = lightTheme;
+  @Input() customDarkTheme: Partial<Theme> = darkTheme;
   // Determines the size of the time picker component
   @Input() size: 'xsmall' | 'small' | 'medium' | 'large' | 'xlarge' = 'medium';
 
 
   /** Selection box configuration (highlights the selected items) **/
-  @Input() selectionBoxStyle: 'highlight' | 'boxes' | 'none' = 'none';
+  @Input() selectionHighlightStyle: 'spanning' | 'separate' | 'none' = 'none';
   // Draws a solid border around the selection box
-  @Input() selectionBoxBorder = false;
+  @Input() selectionBoxBorder = true;
   // Adds background color to the selection box
   @Input() selectionBoxBackground = true;
+  // Adds a colon divider between adjacent pickers
+  @Input() showDivider = false;
 
 
   /** Time configurations **/
@@ -59,11 +65,12 @@ export class TimePickerComponent implements OnInit{
 
   constructor(
     private readonly themeService: ThemeService,
-  ) {
-  }
+  ) {}
 
   ngOnInit() {
+    this.themeService.createThemes(this.customLightTheme, this.customDarkTheme);
     this.themeService.setMainTheme(this.theme, this.selectionBoxBorder, this.selectionBoxBackground);
+
     this.hourValues = (this.hourFormat === 'hours24') ? hoursArray24 : hoursArray12;
     this.minuteValues = minutesArray[this.minuteStep];
     this.convertTimeToIndex(this.startTime, this.selectedIndex);

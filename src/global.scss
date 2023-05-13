@@ -6,17 +6,19 @@
   --primary-color: black;
   --secondary-color: white;
 
-  // Selection box styles
+  /* Selection box styles */
   --selection-box-background-color: none;
   --selection-box-border-color: none;
   --selection-box-border-radius: 8px;
   --selection-box-border-width: 0;
   --selection-box-border-style: solid;
+  --selection-box-width: 100%;
+  --selection-box-height-ratio: 1; // width to height ratio
 
   --item-main-color: black;
   --item-main-font: 'Roboto Condensed', sans-serif;
 
-  // The distance between each wheel picker
+  // Margin value added to the right of each wheel (to adjust the distance between adjacent pickers)
   --picker-wedge-size: 0.8em;
 
   --size-xsmall: 1em;

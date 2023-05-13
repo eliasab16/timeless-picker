@@ -1,0 +1,51 @@
+<timeless-container>
+  <div *ngIf="selectionHighlightStyle === 'spanning'" selection-highlight-spanning
+       class="selection-box-spanning"></div>
+
+  <timeless-base-picker
+    [displayData]="hourValues"
+    [visibleItemsCount]="visibleItemsCount"
+    [size]="size"
+    [selectedItemIndex]="selectedIndex.hours"
+    (newSelectedIndex)="selectionChange($event, pickerCategory.hours)"
+    [ngClass]="showDivider ? 'wheel-divider' : ''"
+  >
+    <div *ngIf="selectionHighlightStyle === 'separate'" class="selection-box"
+         selection-box></div>
+  </timeless-base-picker>
+
+  <timeless-base-picker
+    [displayData]="minuteValues"
+    [visibleItemsCount]="visibleItemsCount"
+    [size]="size"
+    [selectedItemIndex]="selectedIndex.minutes"
+    [infiniteWheelStyle]="minutesInfiniteStyle()"
+    (newSelectedIndex)="selectionChange($event, pickerCategory.minutes)"
+    [ngClass]="(showDivider && showSeconds) ? 'wheel-divider' : ''"
+  >
+    <div *ngIf="selectionHighlightStyle === 'separate'" class="selection-box" selection-box></div>
+  </timeless-base-picker>
+
+  <timeless-base-picker
+    *ngIf="showSeconds"
+    [displayData]="secondValues"
+    [visibleItemsCount]="visibleItemsCount"
+    [size]="size"
+    [selectedItemIndex]="selectedIndex.seconds"
+    (newSelectedIndex)="selectionChange($event,pickerCategory.seconds)"
+  >
+    <div *ngIf="selectionHighlightStyle === 'separate'" class="selection-box" selection-box></div>
+  </timeless-base-picker>
+
+  <timeless-base-picker
+    *ngIf="hourFormat === 'hours12'"
+    [displayData]="dayPeriods"
+    [visibleItemsCount]="3"
+    [selectedItemIndex]="selectedIndex.period"
+    [size]="size"
+    [infiniteWheelStyle]="false"
+    (newSelectedIndex)="selectionChange($event, pickerCategory.period)"
+  >
+    <div *ngIf="selectionHighlightStyle === 'separate'" class="selection-box" selection-box></div>
+  </timeless-base-picker>
+</timeless-container>

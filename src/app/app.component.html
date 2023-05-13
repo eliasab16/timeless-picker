@@ -2,13 +2,16 @@
 
 <div style="display: flex; justify-content: center">
   <div style="width: 50%">
-    <app-time-picker
+    <timeless-time-picker
       [hourFormat]="'hours12'"
       [size]="'large'"
       [visibleItemsCount]="5"
       [selectionBoxBackground]="true"
       [selectionBoxBorder]="true"
+      [selectionHighlightStyle]="'separate'"
+      [showDivider]="true"
+      [theme]="'light'"
       [minuteStep]="5">
-    </app-time-picker>
+    </timeless-time-picker>
   </div>
 </div>
