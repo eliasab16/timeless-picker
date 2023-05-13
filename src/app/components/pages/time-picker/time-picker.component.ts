@@ -17,6 +17,7 @@ import {darkTheme, lightTheme, Theme} from "../../../constants/themes";
 export class TimePickerComponent implements OnInit{
   /** Component general style configurations **/
   @Input() theme: 'dark' | 'light' = 'light';
+  // User customized themes to substitute the defaults
   @Input() customLightTheme: Partial<Theme> = lightTheme;
   @Input() customDarkTheme: Partial<Theme> = darkTheme;
   // Determines the size of the time picker component
