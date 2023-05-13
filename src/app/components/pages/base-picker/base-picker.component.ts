@@ -9,16 +9,19 @@ import * as Hammer from 'hammerjs';
 export class BasePickerComponent implements OnInit {
   @ViewChild('wheel', { static: true, read: ElementRef }) wheel: ElementRef = {} as ElementRef;
 
+  /** General configurations **/
   // An infinite wheel means that items can be scrolled in an infinite loop (the user can scroll
   // past the last item and before the first item). Otherwise, it's a picker bounded by its
   // first and last items.
   @Input() infiniteWheelStyle = true;
+  // Size of the picker
   @Input() size: 'xsmall' | 'small' | 'medium' | 'large' | 'xlarge' = 'medium';
+  // Apply fading opacity to the elements around the middle element (for wheel effect)
   @Input() enableOpacity = true;
   // Draw a box around the middle (selected) element of each picker
   @Input() addBorder = false;
 
-
+  /** Data handling and display **/
   // How many items are displayed on the wheel. Must be odd so that the selection is in the middle
   // of the wheel
   @Input() visibleItemsCount = 7;
@@ -29,6 +32,7 @@ export class BasePickerComponent implements OnInit {
   // of the item within the displayData list. E.g.: [a,b,c,d,e] -> 1 displays item b in the middle
   @Input() selectedItemIndex = 0;
 
+  /** Controls **/
   // Enables scrolling using the mouse wheel
   // todo: decide the default value
   @Input() enableMouseWheel = true;
@@ -61,6 +65,10 @@ export class BasePickerComponent implements OnInit {
   }
 
   ngOnInit() {
+    if (this.displayData.length === 0) {
+      throw new Error('You must provide an array of data to display as options in a wheel picker.')
+    }
+
     if (this.visibleItemsCount % 2 == 0 || this.visibleItemsCount < 3) {
       throw new Error('Number of visible items must be odd and between 3-9 (inclusive). Consult' +
         ' the documentations for more information.');
