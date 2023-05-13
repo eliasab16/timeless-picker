@@ -15,7 +15,7 @@ import {darkTheme, lightTheme, Theme} from "../../../constants/themes";
   styleUrls: ['./time-picker.component.scss']
 })
 export class TimePickerComponent implements OnInit{
-  /** Component general style configurations **/
+  /** General style configurations **/
   @Input() theme: 'dark' | 'light' = 'light';
   // User customized themes to substitute the defaults
   @Input() customLightTheme: Partial<Theme> = lightTheme;
@@ -24,7 +24,7 @@ export class TimePickerComponent implements OnInit{
   @Input() size: 'xsmall' | 'small' | 'medium' | 'large' | 'xlarge' = 'medium';
 
 
-  /** Selection box configuration (highlights the selected items) **/
+  /** Selection box/highlight configuration **/
   @Input() selectionHighlightStyle: 'spanning' | 'separate' | 'none' = 'none';
   // Draws a solid border around the selection box
   @Input() selectionBoxBorder = true;
@@ -34,10 +34,9 @@ export class TimePickerComponent implements OnInit{
   @Input() showDivider = false;
 
 
-  /** Time configurations **/
+  /** Time format configurations **/
   @Input() hourFormat: 'hours24' | 'hours12' = 'hours24';
-  // simple: HH:ss:mm
-  @Input() valueFormat: 'iso' | 'simple' = 'simple';
+  // Add a picker for seconds
   @Input() showSeconds = false;
   @Input() visibleItemsCount = 7;
   @Input() startTime = '11:25:00';
