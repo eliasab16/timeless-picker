@@ -29,8 +29,7 @@ adding any dynamically adding any new elements.
 # How to use?
 
 ## Base-Picker:
-### Basic 
-You can use the base picker by simply adding this to your HTML:
+### Usage:
 
 ```
 <timeless-base-picker
@@ -68,9 +67,7 @@ selection. For all the possible properties and settings, see the table below.
 
 
 ## Time-picker:
-### Basic
-
-You can use the base picker by simply adding this to your HTML:
+### Usage:
 
 ```
 <timeless-time-picker
@@ -112,5 +109,23 @@ best.
 |-------------------|------------|--------------------------------------------------------------------------------------------------------------------------------|
 | timeChangeIso     | string     | Broadcasts the new time selection in ISO format. (Both ISO and simple string format are always provided).                      |
 | timeChangeSimple  | string     | Broadcasts the new time selection in a simple string format 'HH:mm:ss' (if showSeconds = false, seconds is always equal to 0). |
+
+
+## Advanced customization
+
+### Selection highlight
+
+The default picker has a gradient opacity effect applied to the elements before and after the 
+middle (or selected) one. This serves to highlight the selected element and to produce an effect 
+of a curved wheel.
+
+![Default dark time picker](src/assets/images/dark-default-time.png)
+
+Additionally, the package includes two different styles of selections boxes, as shown below:
+1) `Separate` style: individual boxes around each picker's selection:
+2) `Spanning` style: one rectangular shape that spans over multiple pickers (this doesn't apply 
+   if you're using one base-picker. This option is available for the time-picker or if you're 
+   using the timeless-container template [REFERENCE NEEDED] to host multiple base-picker):
+
 
 

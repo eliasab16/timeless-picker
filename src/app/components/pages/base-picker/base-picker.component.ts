@@ -41,7 +41,6 @@ export class BasePickerComponent implements OnInit {
 
   // Number of items in input data
   itemsCount = 0;
-  cumulativeVelocity = 0;
   // A normalized, cumulative measurement of user swipe distance to compare against the
   // distThreshold to determine actual movement of the picker. The speed of user swiping is
   // factored in. After an actual movement is triggered, the value is reset to zero.
@@ -162,7 +161,7 @@ export class BasePickerComponent implements OnInit {
   }
 
   private speedFactor(velocity: number) {
-    // this bounded function rewards high scroll speeds by returning > 1 factors and penalizes slow
+    // This bounded function rewards high scroll speeds by returning > 1 factors and penalizes slow
     // speeds with < 1 values. Used to factor the movement distance calculation. The idea is to
     // improve user experience with variable scrolling speeds.
     // const factor = 8 / (1 + Math.exp(6 - Math.abs(velocity)));
