@@ -1,6 +1,7 @@
 <timeless-container>
   <div *ngIf="selectionHighlightStyle === 'spanning'" selection-highlight-spanning
        class="selection-box-spanning"></div>
+  <ng-content selection-highlight-spanning select="[custom-selection-highlight]"></ng-content>
 
   <timeless-base-picker
     [displayData]="hourValues"
@@ -10,7 +11,8 @@
     (newSelectedIndex)="selectionChange($event, pickerCategory.hours)"
     [ngClass]="showDivider ? 'wheel-divider' : ''"
   >
-    <div *ngIf="selectionHighlightStyle === 'separate'" class="selection-box"
+    <div *ngIf="selectionHighlightStyle === 'separate'"
+         class="selection-box"
          selection-box></div>
   </timeless-base-picker>
 

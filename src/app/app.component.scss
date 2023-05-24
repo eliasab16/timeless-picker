@@ -1,1 +1,21 @@
+div.selection-box {
+  z-index: 10;
+  position: absolute;
+  width: var(--selection-box-width);
+  aspect-ratio: var(--selection-box-height-ratio);
+  border-radius: var(--selection-box-border-radius);
+  border-width: var(--selection-box-border-width);
+  border-style: var(--selection-box-border-style);
+  border-color: var(--selection-box-border-color);
+}
 
+.custom-selection {
+  z-index: 10; /* placed below timeless-base-picker so as not to interfere with scrolling */
+  position: absolute;
+  height: calc(100% / 8); // todo: what's 6? should it change for different wheel sizes?
+  width: 100%;
+  border-radius: 12px;
+  border-width: 3px;
+  border-style: dashed;
+  border-color: yellow;
+}
