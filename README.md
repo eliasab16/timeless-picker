@@ -111,7 +111,7 @@ best.
 | timeChangeSimple  | string     | Broadcasts the new time selection in a simple string format 'HH:mm:ss' (if showSeconds = false, seconds is always equal to 0). |
 
 
-## Advanced customization
+## A deeper insight into customizations
 
 ### Selection highlight
 
@@ -122,10 +122,48 @@ of a curved wheel.
 ![Default dark time picker](src/assets/images/dark-default-time.png)
 
 Additionally, the package includes two different styles of selections boxes, as shown below:
-1) `Separate` style: individual boxes around each picker's selection:
+1) `Separate` style: individual boxes around each picker's selection:*
+
+![Light time picker separate](src/assets/images/light-separate-w-divider.png)
+![Dark time picker separate](src/assets/images/dark-separate-w-seconds.png)
+
 2) `Spanning` style: one rectangular shape that spans over multiple pickers (this doesn't apply 
    if you're using one base-picker. This option is available for the time-picker or if you're 
-   using the timeless-container template [REFERENCE NEEDED] to host multiple base-picker):
+   using the timeless-container template [REFERENCE NEEDED] to host multiple base-picker):*
+
+![Dark time picker spanning border selection](src/assets/images/dark-spanning-border-time.png)
+![Dark time picker spanning selection](src/assets/images/dark-spanning-selection-time.png)
+![Light time picker spanning selection](src/assets/images/light-spanning-selection-time.png)
+
+*The examples aren't comprehensive with regard to available styling.
+
+#### Custom selection highlight component:
+
+It's also possible to provide your own custom selection box/highlight component.
+
+If you're using the out-of-box `timeless-time-picker`, you can provide a custom component as a 
+child by annotating it with the selector `custom-selection-highlight`. Here's an example:
+
+```
+<timeless-time-picker [hourFormat]="'hours12'" [visibleItemsCount]="7" [theme]="'dark'">
+      <div class="custom-selection" custom-selection-highlight></div> 
+</timeless-time-picker>
 
 
+.custom-selection {
+  z-index: 10;
+  position: absolute;
+  height: calc(100% / 8);
+  width: 100%;
+  border-radius: 12px;
+  border-width: 3px;
+  border-style: dashed;
+  border-color: yellow;
+}
+```
+*make sure to add `z-index: 10` to stack the box below the time-picker component in order not to 
+interfere with the scroll/pan recognition and `position: absolute` to allow stacking.
 
+The above code will give the produce the following result:
+
+![Custom selection box](src/assets/images/custom-selection-box.png)
