@@ -8,14 +8,3 @@ div.selection-box {
   border-style: var(--selection-box-border-style);
   border-color: var(--selection-box-border-color);
 }
-
-.custom-selection {
-  z-index: 10; /* placed below timeless-base-picker so as not to interfere with scrolling */
-  position: absolute;
-  height: calc(100% / 8); // todo: what's 6? should it change for different wheel sizes?
-  width: 100%;
-  border-radius: 12px;
-  border-width: 3px;
-  border-style: dashed;
-  border-color: yellow;
-}

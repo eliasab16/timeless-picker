@@ -12,7 +12,10 @@ export class ThemeService {
   // Theme: light vs dark mode
   // boxBorder: if true, shows a solid border around the selection box
   // boxBackground: if true, adds background color to the selection box (compatible with mode color)
-  setMainTheme(theme: 'light' | 'dark', boxBorder = false, boxBackground  = true) {
+  setMainTheme(theme: 'light' | 'dark',
+               boxBorder = false,
+               boxBackground  = true,
+               spanningHeightFactor: number) {
     this.currentTheme = theme === 'light' ? this.lightTheme : this.darkTheme;
 
     this.setElemStyle('--background-color', this.currentTheme.background);
@@ -21,6 +24,7 @@ export class ThemeService {
     this.setElemStyle('--selection-box-background-color',boxBackground ? this.currentTheme.selectionBoxBackground : 'transparent');
     this.setElemStyle('--selection-box-border-width',boxBorder ? '1px' : '0');
     this.setElemStyle('--selection-box-border-color',boxBorder ? this.currentTheme.selectionBoxBorderColor : 'transparent');
+    this.setElemStyle('--selection-spanning-height-factor', spanningHeightFactor.toString())
   }
 
   createThemes(customLightTheme: Partial<Theme>, customDarkTheme: Partial<Theme>) {

@@ -24,7 +24,7 @@ export class BasePickerComponent implements OnInit {
   /** Data handling and display **/
   // How many items are displayed on the wheel. Must be odd so that the selection is in the middle
   // of the wheel
-  @Input() visibleItemsCount = 7;
+  @Input() visibleItemsCount = 5;
   // A list of the data to display, ordered relatively - i.e. items ordered relative to each
   // other, and not necessarily according to how they are displayed on the wheel.
   @Input() displayData: string[] = [];
@@ -34,7 +34,6 @@ export class BasePickerComponent implements OnInit {
 
   /** Controls **/
   // Enables scrolling using the mouse wheel
-  // todo: decide the default value
   @Input() enableMouseWheel = true;
 
   @Output() newSelectedIndex = new EventEmitter<number>();

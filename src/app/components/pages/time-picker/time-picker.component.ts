@@ -38,9 +38,9 @@ export class TimePickerComponent implements OnInit{
   @Input() hourFormat: 'hours24' | 'hours12' = 'hours24';
   // Add a picker for seconds
   @Input() showSeconds = false;
-  @Input() visibleItemsCount = 7;
+  @Input() visibleItemsCount = 5;
   @Input() startTime = '11:25:00';
-  // Show minutes that are a multiple of
+  // Show minutes that are a multiple of minuteStep
   @Input() minuteStep: 1 | 5 | 10 | 15 | 20 | 30 = 1;
 
 
@@ -68,7 +68,12 @@ export class TimePickerComponent implements OnInit{
 
   ngOnInit() {
     this.themeService.createThemes(this.customLightTheme, this.customDarkTheme);
-    this.themeService.setMainTheme(this.theme, this.selectionBoxBorder, this.selectionBoxBackground);
+    this.themeService.setMainTheme(
+      this.theme,
+      this.selectionBoxBorder,
+      this.selectionBoxBackground,
+      this.visibleItemsCount + 1
+    );
 
     this.hourValues = (this.hourFormat === 'hours24') ? hoursArray24 : hoursArray12;
     this.minuteValues = minutesArray[this.minuteStep];
