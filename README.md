@@ -2,7 +2,7 @@
 ## Intro
 
 Timeless Picker is an out-of-the-box, highly-customizable, infinite wheel (time) picker for Angular 
-application.
+applications.
 
 ### Demo can be found here: [insert link]
 

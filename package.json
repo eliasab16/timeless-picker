@@ -1,6 +1,6 @@
 {
   "name": "timeless-picker",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
@@ -9,7 +9,10 @@
     "test": "ng test",
     "lint": "ng lint"
   },
-  "private": true,
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/eliasab16/timeless-picker"
+  },
   "dependencies": {
     "@angular/animations": "^15.2.0",
     "@angular/common": "^15.2.0",
