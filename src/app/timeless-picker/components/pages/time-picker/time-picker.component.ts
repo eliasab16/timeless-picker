@@ -7,7 +7,7 @@ import {
 } from "../../../constants/time";
 import { PeriodIndex, PickerCategory, TimeIndex} from "../../../constants/category";
 import { ThemeService } from "../../../services/theme-service/theme.service";
-import {darkTheme, lightTheme, Theme} from "../../../constants/themes";
+import { darkTheme, lightTheme, Theme } from "../../../constants/themes";
 
 @Component({
   selector: 'timeless-time-picker',
