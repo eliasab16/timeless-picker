@@ -1,10 +1,10 @@
 # Timeless Picker
-## Intro
+## About
 
 Timeless Picker is an out-of-the-box, highly-customizable, infinite wheel (time) picker for Angular 
 applications.
 
-### Demo can be found here: [insert link]
+#### Demo can be found here: [insert link]
 
 The main goal of this project is to provide a general-purpose *infinite*-scroll wheel picker 
 (ios-style), with a larger focus on time-pickers. I couldn't find any free infinite-scroll 
@@ -16,6 +16,47 @@ decreased performance.
 This project, on the other hand, mocks scrolling mathematically and programmatically, without 
 adding any dynamically adding any new elements.
 
+### Getting started
+Install the package:
+```shell
+npm i --save timeless-picker
+```
+
+You may have to also install the following (you will get Type errors if you have 
+"noImplicityAny: true" set in your tsconfig.json):
+```shell
+npm i --save-dev @type/hammerjs
+```
+
+Add the style:
+```shell
+@import "../node_modules/timeless-picker/src/global.scss";
+```
+
+Import `TimelessPickerModule` into your `app.module.ts`:
+```typescript
+import { NgModule } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
+
+import { AppRoutingModule } from './app-routing.module';
+import { AppComponent } from './app.component';
+import { TimelessPickerModule } from 'timeless-picker';
+
+
+@NgModule({
+  declarations: [
+    AppComponent
+  ],
+  imports: [
+    TimelessPickerModule,
+    BrowserModule,
+    AppRoutingModule
+  ],
+  providers: [],
+  bootstrap: [AppComponent]
+})
+export class AppModule { }
+```
 
 ### Components
 
@@ -119,21 +160,21 @@ The default picker has a gradient opacity effect applied to the elements before 
 middle (or selected) one. This serves to highlight the selected element and to produce an effect 
 of a curved wheel.
 
-![Default dark time picker](src/assets/images/dark-default-time.png)
+![Default dark time picker](assets/images/dark-default-time.png)
 
 Additionally, the package includes two different styles of selections boxes, as shown below:
 1) `Separate` style: individual boxes around each picker's selection:*
 
-![Light time picker separate](src/assets/images/light-separate-w-divider.png)
-![Dark time picker separate](src/assets/images/dark-separate-w-seconds.png)
+![Light time picker separate](assets/images/light-separate-w-divider.png)
+![Dark time picker separate](assets/images/dark-separate-w-seconds.png)
 
 2) `Spanning` style: one rectangular shape that spans over multiple pickers (this doesn't apply 
    if you're using one base-picker. This option is available for the time-picker or if you're 
    using the timeless-container template [REFERENCE NEEDED] to host multiple base-picker):*
 
-![Dark time picker spanning border selection](src/assets/images/dark-spanning-border-time.png)
-![Dark time picker spanning selection](src/assets/images/dark-spanning-selection-time.png)
-![Light time picker spanning selection](src/assets/images/light-spanning-selection-time.png)
+![Dark time picker spanning border selection](assets/images/dark-spanning-border-time.png)
+![Dark time picker spanning selection](assets/images/dark-spanning-selection-time.png)
+![Light time picker spanning selection](assets/images/light-spanning-selection-time.png)
 
 *The examples aren't comprehensive with regard to available styling.
 
@@ -166,4 +207,4 @@ interfere with the scroll/pan recognition and `position: absolute` to allow stac
 
 The above code will give the produce the following result:
 
-![Custom selection box](src/assets/images/custom-selection-box.png)
+![Custom selection box](assets/images/custom-selection-box.png)

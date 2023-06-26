@@ -19,6 +19,11 @@
     "target": "ES2022",
     "module": "ES2022",
     "useDefineForClassFields": false,
+    "paths": {
+      "timeless-picker": [
+        "dist/timeless-picker"
+      ]
+    },
     "lib": [
       "ES2022",
       "dom"
@@ -28,6 +33,7 @@
     "enableI18nLegacyMessageIdFormat": false,
     "strictInjectionParameters": true,
     "strictInputAccessModifiers": true,
-    "strictTemplates": true
+    "strictTemplates": true,
+    "skipTemplateCodegen": true
   }
 }
