@@ -1,0 +1,19 @@
+<script src="https://hammerjs.github.io/dist/hammer.js"></script>
+
+<div style="background: black; display: flex; justify-content: center">
+  <div style="width: 50%">
+    <timeless-time-picker
+      [hourFormat]="'hours12'"
+      [visibleItemsCount]="5"
+      [size]="'large'"
+      [selectionHighlightStyle]="'spanning'"
+      [selectionBoxBackground]="false"
+      [showDivider]="false"
+      [showSeconds]="false"
+      [theme]="'dark'"
+      [customDarkTheme]="{background: 'black'}"
+      [minuteStep]="1">
+      <div class="custom-selection" custom-selection-highlight></div>
+    </timeless-time-picker>
+  </div>
+</div>

@@ -1,0 +1,62 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto+Condensed');
+
+:root {
+  --background-color: white;
+  --text-color: black;
+  --primary-color: black;
+  --secondary-color: white;
+
+  /* Selection box styles */
+  --selection-box-background-color: none;
+  --selection-box-border-color: none;
+  --selection-box-border-radius: 8px;
+  --selection-box-border-width: 0;
+  --selection-box-border-style: solid;
+  --selection-box-width: 100%;
+  --selection-box-height-ratio: 1; // width to height ratio
+  --selection-spanning-height-factor: 6; // denominator that normalizes spanning selection height
+
+  --item-main-color: black;
+  --item-main-font: 'Roboto Condensed', sans-serif;
+
+  // Margin value added to the right of each wheel (to adjust the distance between adjacent pickers)
+  --picker-wedge-size: 0.8em;
+
+  --size-xsmall: 1em;
+  --size-small: 1.2em;
+  --size-medium: 1.4em;
+  --size-large: 1.6em;
+  --size-xlarge: 2em;
+
+  .size {
+    &-xsmall {
+      font-size: var(--size-xsmall);
+      height: var(--size-xsmall);
+      width: var(--size-xsmall);
+    }
+
+    &-small {
+      font-size: var(--size-small);
+      height: var(--size-small);
+      width: var(--size-small);;
+    }
+
+    &-medium {
+      font-size: var(--size-medium);
+      height: var(--size-medium);
+      width: var(--size-medium);
+    }
+
+    &-large {
+      font-size: var(--size-large);
+      height: var(--size-large);
+      width: var(--size-large);
+    }
+
+    &-xlarge {
+      font-size: var(--size-xlarge);
+      height: var(--size-xlarge);
+      width: var(--size-xlarge);
+    }
+  }
+}
