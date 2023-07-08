@@ -23,13 +23,13 @@ npm i --save timeless-picker
 ```
 
 You may have to also install the following (you will get Type errors if you have 
-"noImplicityAny: true" set in your tsconfig.json):
+`"noImplicityAny: true"` set under `"compilerOptions"` in your project's `tsconfig.json`):
 ```shell
 npm i --save-dev @type/hammerjs
 ```
 
-Add the style:
-```shell
+Import the package's styles by adding the following to your styles file:
+```scss
 @import "../node_modules/timeless-picker/src/global.scss";
 ```
 
