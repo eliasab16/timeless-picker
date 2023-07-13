@@ -25,7 +25,7 @@ npm i --save timeless-picker
 You may have to also install the following (you will get Type errors if you have 
 `"noImplicityAny: true"` set under `"compilerOptions"` in your project's `tsconfig.json`):
 ```shell
-npm i --save-dev @type/hammerjs
+npm i --save-dev @types/hammerjs
 ```
 
 Import the package's styles by adding the following to your styles file:

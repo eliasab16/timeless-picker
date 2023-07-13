@@ -72,7 +72,7 @@
               "projects/timeless-picker-demo/src/assets"
             ],
             "styles": [
-              "projects/timeless-picker/src/global.scss"
+              "projects/timeless-picker/src/styles/global.scss"
             ],
             "scripts": []
           },

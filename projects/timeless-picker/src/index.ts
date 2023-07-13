@@ -9,3 +9,4 @@ export * from './lib/components/pages/time-picker/time-picker.module';
 export * from './lib/components/pages/time-picker/time-picker.component';
 export * from './lib/components/templates/timeless-container/timeless-container.module';
 export * from './lib/components/templates/timeless-container/timeless-container.component';
+export * from './lib/services/theme-service/theme.service';

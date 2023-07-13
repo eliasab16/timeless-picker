@@ -1,14 +1,23 @@
 {
   "name": "timeless-picker",
-  "version": "0.0.0",
+  "main": "projects/timeless-picker/src/index.ts",
+  "files": [
+    "dist/*.scss"
+  ],
+  "version": "1.0.32",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test"
+    "test": "ng test",
+    "lint": "ng lint",
+    "lib:build": "ng build timeless-picker"
   },
-  "private": true,
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/eliasab16/timeless-picker"
+  },
   "dependencies": {
     "@angular/animations": "^15.2.0",
     "@angular/common": "^15.2.0",
@@ -20,15 +29,24 @@
     "@angular/router": "^15.2.0",
     "hammerjs": "^2.0.8",
     "rxjs": "~7.8.0",
+    "timeless-picker": "file:projects/timeless-picker",
     "tslib": "^2.3.0",
     "zone.js": "~0.12.0"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "^15.2.8",
+    "@angular-eslint/builder": "15.2.1",
+    "@angular-eslint/eslint-plugin": "15.2.1",
+    "@angular-eslint/eslint-plugin-template": "15.2.1",
+    "@angular-eslint/schematics": "15.2.1",
+    "@angular-eslint/template-parser": "15.2.1",
     "@angular/cli": "~15.2.5",
     "@angular/compiler-cli": "^15.2.0",
     "@types/hammerjs": "^2.0.41",
     "@types/jasmine": "~4.3.0",
+    "@typescript-eslint/eslint-plugin": "5.48.2",
+    "@typescript-eslint/parser": "5.48.2",
+    "eslint": "^8.33.0",
     "jasmine-core": "~4.5.0",
     "karma": "~6.4.0",
     "karma-chrome-launcher": "~3.1.0",
