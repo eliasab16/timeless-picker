@@ -3,22 +3,22 @@
   justify-content: center;
   align-items: center;
   position: relative;
-  background: var(--background-color);
+  background: var(--timeless-background-color);
 }
 
 timeless-base-picker {
   position: relative;
-  margin-right: var(--picker-wedge-size);
+  margin-right: var(--timeless-picker-wedge-size);
   z-index: 20;
 }
 
 /* position the colon divider in the middle between adjacent pickers - half the margin */
 timeless-base-picker.wheel-divider::after {
   content: ":";
-  color: var(--selection-box-border-color);
+  color: var(--timeless-selection-box-border-color);
   position: absolute;
   top: 50%;
-  right: calc(-1 * var(--picker-wedge-size) / 2);
+  right: calc(-1 * var(--timeless-picker-wedge-size) / 2);
   font-size: 24px;
   transform: translateY(-50%);
 }
@@ -26,22 +26,22 @@ timeless-base-picker.wheel-divider::after {
 .selection-box-spanning {
   z-index: 10; /* placed below timeless-base-picker so as not to interfere with scrolling */
   position: absolute;
-  height: calc(100% / var(--selection-spanning-height-factor));
+  height: calc(100% / var(--timeless-selection-spanning-height-factor));
   width: 100%;
-  border-radius: var(--selection-box-border-radius);
-  border-width: var(--selection-box-border-width);
-  border-style: var(--selection-box-border-style);
-  border-color: var(--selection-box-border-color);
-  background: var(--selection-box-background-color);
+  border-radius: var(--timeless-selection-box-border-radius);
+  border-width: var(--timeless-selection-box-border-width);
+  border-style: var(--timeless-selection-box-border-style);
+  border-color: var(--timeless-selection-box-border-color);
+  background: var(--timeless-selection-box-background-color);
 }
 
 div.selection-box {
   z-index: 10;
   position: absolute;
-  width: var(--selection-box-width);
-  aspect-ratio: var(--selection-box-height-ratio);
-  border-radius: var(--selection-box-border-radius);
-  border-width: var(--selection-box-border-width);
-  border-style: var(--selection-box-border-style);
-  border-color: var(--selection-box-border-color);
+  width: var(--timeless-selection-box-width);
+  aspect-ratio: var(--timeless-selection-box-height-ratio);
+  border-radius: var(--timeless-selection-box-border-radius);
+  border-width: var(--timeless-selection-box-border-width);
+  border-style: var(--timeless-selection-box-border-style);
+  border-color: var(--timeless-selection-box-border-color);
 }

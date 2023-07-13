@@ -18,13 +18,13 @@ export class ThemeService {
                spanningHeightFactor: number) {
     this.currentTheme = theme === 'light' ? this.lightTheme : this.darkTheme;
 
-    this.setElemStyle('--background-color', this.currentTheme.background);
-    this.setElemStyle('--primary-color', this.currentTheme.primary);
+    this.setElemStyle('--timeless-background-color', this.currentTheme.background);
+    this.setElemStyle('--timeless-primary-color', this.currentTheme.primary);
 
-    this.setElemStyle('--selection-box-background-color',boxBackground ? this.currentTheme.selectionBoxBackground : 'transparent');
-    this.setElemStyle('--selection-box-border-width',boxBorder ? '1px' : '0');
-    this.setElemStyle('--selection-box-border-color',boxBorder ? this.currentTheme.selectionBoxBorderColor : 'transparent');
-    this.setElemStyle('--selection-spanning-height-factor', spanningHeightFactor.toString())
+    this.setElemStyle('--timeless-selection-box-background-color',boxBackground ? this.currentTheme.selectionBoxBackground : 'transparent');
+    this.setElemStyle('--timeless-selection-box-border-width',boxBorder ? '1px' : '0');
+    this.setElemStyle('--timeless-selection-box-border-color',boxBorder ? this.currentTheme.selectionBoxBorderColor : 'transparent');
+    this.setElemStyle('--timeless-selection-spanning-height-factor', spanningHeightFactor.toString())
   }
 
   createThemes(customLightTheme: Partial<Theme>, customDarkTheme: Partial<Theme>) {

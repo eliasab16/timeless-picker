@@ -4,7 +4,7 @@
       [style.opacity]="enableOpacity ? opacityMapping[i] : 1"
       (click)="numberClicked(i)"
       class="hour-digit"
-      [ngClass]="['size-' + size, addBorder && i === wheelMiddleIndex ? 'border-base': '']"
+      [ngClass]="['timeless-size-' + size, addBorder && i === wheelMiddleIndex ? 'border-base': '']"
     >
       {{ displayData[orderMapping[i]] }}
 
