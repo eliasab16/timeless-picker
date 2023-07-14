@@ -1,0 +1,43 @@
+@import url("https://fonts.googleapis.com/css?family=Roboto+Condensed");
+:root {
+  --timeless-background-color: white;
+  --timeless-text-color: black;
+  --timeless-primary-color: black;
+  --timeless-secondary-color: white;
+  /* Selection box styles */
+  --timeless-selection-box-background-color: none;
+  --timeless-selection-box-border-color: none;
+  --timeless-selection-box-border-radius: 8px;
+  --timeless-selection-box-border-width: 0;
+  --timeless-selection-box-border-style: solid;
+  --timeless-selection-box-width: 100%;
+  --timeless-selection-box-height-ratio: 1;
+  --timeless-selection-spanning-height-factor: 6;
+  --timeless-item-main-color: black;
+  --timeless-item-main-font: 'Roboto Condensed', sans-serif;
+  --timeless-picker-wedge-size: 0.8em;
+  --timeless-size-xsmall: 1em;
+  --timeless-size-small: 1.2em;
+  --timeless-size-medium: 1.4em;
+  --timeless-size-large: 1.6em;
+  --timeless-size-xlarge: 2em; }
+  :root .timeless-size-xsmall {
+    font-size: var(--timeless-size-xsmall);
+    height: var(--timeless-size-xsmall);
+    width: var(--timeless-size-xsmall); }
+  :root .timeless-size-small {
+    font-size: var(--timeless-size-small);
+    height: var(--timeless-size-small);
+    width: var(--timeless-size-small); }
+  :root .timeless-size-medium {
+    font-size: var(--timeless-size-medium);
+    height: var(--timeless-size-medium);
+    width: var(--timeless-size-medium); }
+  :root .timeless-size-large {
+    font-size: var(--timeless-size-large);
+    height: var(--timeless-size-large);
+    width: var(--timeless-size-large); }
+  :root .timeless-size-xlarge {
+    font-size: var(--timeless-size-xlarge);
+    height: var(--timeless-size-xlarge);
+    width: var(--timeless-size-xlarge); }
