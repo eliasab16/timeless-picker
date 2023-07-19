@@ -4,7 +4,7 @@
 Timeless Picker is an out-of-the-box, highly-customizable, infinite wheel (time) picker for Angular 
 applications.
 
-#### Demo can be found here: [insert link]
+### For a demo, visit: https://codesandbox.io/p/sandbox/timeless-picker-demo-4wsmdv
 
 The main goal of this project is to provide a general-purpose *infinite*-scroll wheel picker 
 (ios-style), with a larger focus on time-pickers. I couldn't find any free infinite-scroll 
@@ -13,8 +13,8 @@ general infinite-scroll packages, they however use lazy-loading techniques, whic
 adding new elements to the DOM. This has many possible downsides, among which is 
 decreased performance.
 
-This project, on the other hand, mocks scrolling mathematically and programmatically, without 
-adding any dynamically adding any new elements.
+This project, on the other hand, mocks scrolling mathematically and programmatically, 
+without dynamically adding any new elements.
 
 ### Getting started
 Install the package:
@@ -30,7 +30,11 @@ npm i --save-dev @types/hammerjs
 
 Import the package's styles by adding the following to your styles file:
 ```scss
-@import "../node_modules/timeless-picker/src/global.scss";
+@import "../node_modules/timeless-picker/src/styles/styles.css";
+```
+Or add the following to your `index.html`
+```html
+<link href="https://cdn.jsdelivr.net/npm/timeless-picker/src/styles/styles.css" rel="stylesheet">
 ```
 
 Import `TimelessPickerModule` into your `app.module.ts`:
