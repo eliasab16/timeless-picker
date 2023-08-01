@@ -1,11 +1,14 @@
-# Timeless Picker
+[# Timeless Picker
 ## About
 
 Timeless Picker is an out-of-the-box, highly-customizable, infinite wheel (time) picker for Angular 
 applications.
 
-### For a demo, visit: https://codesandbox.io/p/sandbox/timeless-picker-demo-4wsmdv
+### Project demo
+#### To view a live demo, click [HERE](https://github-twnpso.stackblitz.io/)
+#### You can also experiment with the code in an interactive environment on [Stackblitz](https://stackblitz.com/edit/github-twnpso?file=src%2Fapp%2Fapp.component.html)
 
+### General
 The main goal of this project is to provide a general-purpose *infinite*-scroll wheel picker 
 (ios-style), with a larger focus on time-pickers. I couldn't find any free infinite-scroll 
 time pickers for Angular, so I decided to create one. And although there already exist 
@@ -212,3 +215,4 @@ interfere with the scroll/pan recognition and `position: absolute` to allow stac
 The above code will give the produce the following result:
 
 ![Custom selection box](assets/images/custom-selection-box.png)
+]()

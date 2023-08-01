@@ -1,7 +1,6 @@
 {
   "name": "timeless-picker",
-  "main": "src/index.ts",
-  "version": "1.0.59",
+  "version": "1.0.65",
   "style": "src/styles/global.scss",
   "scripts": {
     "ng": "ng",

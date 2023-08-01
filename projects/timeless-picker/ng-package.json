@@ -2,7 +2,7 @@
   "$schema": "../../node_modules/ng-packagr/ng-package.schema.json",
   "dest": "../../dist/timeless-picker",
   "lib": {
-    "entryFile": "src/index.ts"
+    "entryFile": "src/public_api.ts"
   },
   "assets": [
     "src/styles"

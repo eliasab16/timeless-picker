@@ -4,8 +4,11 @@
 Timeless Picker is an out-of-the-box, highly-customizable, infinite wheel (time) picker for Angular
 applications.
 
-#### Demo can be found here: [insert link]
+### Project demo
+#### To view a live demo, click [HERE](https://github-twnpso.stackblitz.io/)
+#### You can also experiment with the code in an interactive environment on [Stackblitz](https://stackblitz.com/edit/github-twnpso?file=src%2Fapp%2Fapp.component.html)
 
+### General
 The main goal of this project is to provide a general-purpose *infinite*-scroll wheel picker
 (ios-style), with a larger focus on time-pickers. I couldn't find any free infinite-scroll
 time pickers for Angular, so I decided to create one. And although there already exist
@@ -13,18 +16,13 @@ general infinite-scroll packages, they however use lazy-loading techniques, whic
 adding new elements to the DOM. This has many possible downsides, among which is
 decreased performance.
 
-This project, on the other hand, mocks scrolling mathematically and programmatically, without
-adding any dynamically adding any new elements.
+This project, on the other hand, mocks scrolling mathematically and programmatically,
+without dynamically adding any new elements.
 
 ### Getting started
 Install the package:
 ```shell
 npm i --save timeless-picker
-```
-
-And this dependency:
-```shell
-npm i --save hammerjs
 ```
 
 You may have to also install the following (you will get Type errors if you have
@@ -33,9 +31,13 @@ You may have to also install the following (you will get Type errors if you have
 npm i --save-dev @types/hammerjs
 ```
 
-Import the package's styles by adding the following to your global/main styles file:
+Import the package's styles by adding the following to your styles file:
 ```scss
-@import "../node_modules/timeless-picker/src/scss/global";
+@import "../node_modules/timeless-picker/src/styles/styles.css";
+```
+Or add the following to your `index.html`
+```html
+<link href="https://cdn.jsdelivr.net/npm/timeless-picker/src/styles/styles.css" rel="stylesheet">
 ```
 
 Import `TimelessPickerModule` into your `app.module.ts`:
@@ -76,14 +78,11 @@ export class AppModule { }
 
 ## Base-Picker:
 ### Usage:
-*Required parameters:*
-- displayData
-- newSelectedIndex
 
 ```angular2html
 <timeless-base-picker
  [displayData]=yourInputDataArray
- (newSelectedIndex)=newSelectionEvent($event)>
+ (newSelectedIndex)=newSelectionEvent()>
 </timeless-base-picker>
 ```
 
@@ -118,14 +117,11 @@ selection. For all the possible properties and settings, see the table below.
 ## Time-picker:
 ### Usage:
 
-*Required parameters:*
- *** todo ***
-
 ```angular2html
 <timeless-time-picker
  [hourFormat]=chooseHourFormat
  [startTime]=specifyStartTime
- (timeChangeIso)=newTimeEvent($event)>
+ (timeChangeIso)=newTimeEvent()>
 </timeless-time-picker>
 ```
 
@@ -171,21 +167,21 @@ The default picker has a gradient opacity effect applied to the elements before 
 middle (or selected) one. This serves to highlight the selected element and to produce an effect
 of a curved wheel.
 
-![Default dark time picker](../../assets/images/dark-default-time.png)
+![Default dark time picker](assets/images/dark-default-time.png)
 
 Additionally, the package includes two different styles of selections boxes, as shown below:
 1) `Separate` style: individual boxes around each picker's selection:*
 
-![Light time picker separate](../../assets/images/light-separate-w-divider.png)
-![Dark time picker separate](../../assets/images/dark-separate-w-seconds.png)
+![Light time picker separate](assets/images/light-separate-w-divider.png)
+![Dark time picker separate](assets/images/dark-separate-w-seconds.png)
 
 2) `Spanning` style: one rectangular shape that spans over multiple pickers (this doesn't apply
    if you're using one base-picker. This option is available for the time-picker or if you're
    using the timeless-container template [REFERENCE NEEDED] to host multiple base-picker):*
 
-![Dark time picker spanning border selection](../../assets/images/dark-spanning-border-time.png)
-![Dark time picker spanning selection](../../assets/images/dark-spanning-selection-time.png)
-![Light time picker spanning selection](../../assets/images/light-spanning-selection-time.png)
+![Dark time picker spanning border selection](assets/images/dark-spanning-border-time.png)
+![Dark time picker spanning selection](assets/images/dark-spanning-selection-time.png)
+![Light time picker spanning selection](assets/images/light-spanning-selection-time.png)
 
 *The examples aren't comprehensive with regard to available styling.
 
@@ -218,4 +214,4 @@ interfere with the scroll/pan recognition and `position: absolute` to allow stac
 
 The above code will give the produce the following result:
 
-![Custom selection box](../../assets/images/custom-selection-box.png)
+![Custom selection box](assets/images/custom-selection-box.png)
