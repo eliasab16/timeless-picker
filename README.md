@@ -215,4 +215,3 @@ interfere with the scroll/pan recognition and `position: absolute` to allow stac
 The above code will give the produce the following result:
 
 ![Custom selection box](assets/images/custom-selection-box.png)
-]()
